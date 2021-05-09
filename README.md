@@ -54,10 +54,10 @@ Then ```composer create-project laravel/laravel```
 
 #### Get all
 
-```GET __HOST/api/product/all```
+```GET https://prime-stew-production.up.railway.app/api/product/all```
 
 #### Insert product
 
-```POST __HOST/api/product/add```
+```POST https://prime-stew-production.up.railway.app/api/product/add```
 
 data: ```{ "name": "", "description": "", "price": 0, "image": "" }```
