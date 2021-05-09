@@ -37,7 +37,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     //
     public function getAll(): Collection
     {
-        // return Category::with("products")->get();
-        return Category::all();
+        return Category::with("products")->get();
+        // return Category::all();
     }
 }
