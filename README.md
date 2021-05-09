@@ -43,3 +43,7 @@ Then ```composer create-project laravel/laravel```
 ```php artisan make:controller <controller_name> -r```
 
 -r: creates some premade helper functions
+
+### Create provider
+
+```php artisan make:provider <provider_name>```
