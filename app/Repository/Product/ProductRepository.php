@@ -13,7 +13,7 @@ class ProductRepository implements ProductRepositoryInterface
     //Get all products
     public function getAll(): Collection
     {
-        return Product::all();
+        return Product::with("categories")->get();
     }
     //Add product
     public function store(Request $request)
@@ -25,6 +25,7 @@ class ProductRepository implements ProductRepositoryInterface
             $product->description = $request->description;
             $product->price = $request->price;
             $product->image = $request->image;
+            // $product->categories()->save()
             $product->save();
             return "good";
         } catch (Exception $e) {

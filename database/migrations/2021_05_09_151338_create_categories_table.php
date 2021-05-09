@@ -20,7 +20,7 @@ class CreateCategoriesTable extends Migration
         });
 
         Schema::table('categories', function (Blueprint $table) {
-            $table->unsignedBigInteger('parent_category');
+            $table->unsignedBigInteger('parent_category')->nullable();
             $table->foreign('parent_category')->references('id')->on('categories');
         });
     }
