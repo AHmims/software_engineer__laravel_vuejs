@@ -37,3 +37,9 @@ Then ```composer create-project laravel/laravel```
 ### Drop all migrations and re-migrate
 
 ```php artisan migrate:fresh```
+
+### Create controller
+
+```php artisan make:controller <controller_name> -r```
+
+-r: creates some premade helper functions
