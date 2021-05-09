@@ -47,3 +47,17 @@ Then ```composer create-project laravel/laravel```
 ### Create provider
 
 ```php artisan make:provider <provider_name>```
+
+## Test requests
+
+### Product route
+
+#### Get all
+
+```GET __HOST/api/product/all```
+
+#### Insert product
+
+```POST __HOST/api/product/add```
+
+data: ```{ "name": "", "description": "", "price": 0, "image": "" }```
