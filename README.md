@@ -60,4 +60,18 @@ Then ```composer create-project laravel/laravel```
 
 ```POST https://prime-stew-production.up.railway.app/api/product/add```
 
-data: ```{ "name": "", "description": "", "price": 0, "image": "" }```
+data: ```{ "name": "", "description": "", "price": 0, "image": "", "categories" : [1,...] }```
+
+### Category route
+
+#### Get all
+
+```GET https://prime-stew-production.up.railway.app/api/category/all```
+
+#### Insert category
+
+```POST https://prime-stew-production.up.railway.app/api/category/add```
+
+data: ```{ "name": "", "parent": 1  }```
+
+"parent" is optional

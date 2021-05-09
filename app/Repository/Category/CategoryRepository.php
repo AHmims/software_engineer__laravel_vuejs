@@ -35,9 +35,10 @@ class CategoryRepository implements CategoryRepositoryInterface
         }
     }
     //
-    public function getAll(): Collection
+    public function getAll($byPriceAsc = true): Collection
     {
-        return Category::with("products")->get();
-        // return Category::all();
+        return Category::with(["products" => function ($q) use ($byPriceAsc) {
+            $q->orderBy("price", $byPriceAsc ? "asc" : "desc");
+        }])->get();
     }
 }

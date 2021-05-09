@@ -13,5 +13,5 @@ interface CategoryRepositoryInterface
 
     public function get(int $id);
 
-    public function getAll(): Collection;
+    public function getAll($byPriceAsc): Collection;
 }

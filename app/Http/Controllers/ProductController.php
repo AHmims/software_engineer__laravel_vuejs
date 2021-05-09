@@ -23,7 +23,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = $this->productRepository->getAll();
+        $products = $this->productRepository->getAll(true);
 
         return $products;
     }
