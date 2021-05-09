@@ -29,3 +29,11 @@ Then ```composer create-project laravel/laravel```
 ### Create model with migration
 
 ```php artisan make:model <model_name> -m```
+
+### Execute the created migrations
+
+```php artisan migrate```
+
+### Drop all migrations and re-migrate
+
+```php artisan migrate:fresh```
