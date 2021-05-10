@@ -1848,6 +1848,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({});
 
 /***/ }),
@@ -19413,9 +19423,42 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "bg-red-600" }, [_vm._v("HELLO WORLD")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "div",
+      {
+        staticClass:
+          "w-full h-full flex flex-col items-center p-10 justify-between"
+      },
+      [
+        _c("h1", { staticClass: "text-3xl" }, [
+          _vm._v("Products management app")
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "flex-1 w-full bg-red-300 my-10" }),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            staticClass:
+              "w-full flex flex-col items-center bg-gray-100 p-4 rounded-lg"
+          },
+          [
+            _c("h4", [
+              _vm._v("Software Engineer @ Laravel VueJs - Coding challenge")
+            ])
+          ]
+        )
+      ]
+    )
+  }
+]
 render._withStripped = true
 
 

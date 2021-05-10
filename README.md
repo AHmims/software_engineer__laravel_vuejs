@@ -20,6 +20,10 @@ Then ```composer create-project laravel/laravel```
 
 ### Run webpack watcher to detect changes in files and hot reload
 
+A mix of
+
+```npm run watch```
+ && 
 ```npm run hot```
 
 ### Create migrations

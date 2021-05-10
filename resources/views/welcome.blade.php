@@ -8,8 +8,8 @@
     <title>Laravel</title>
 </head>
 
-<body class="antialiased">
-    <div id="app">
+<body class="antialiased h-screen">
+    <div id="app" class="container h-full mx-auto">
         <app></app>
     </div>
     {{--  --}}
