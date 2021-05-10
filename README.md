@@ -18,7 +18,7 @@ Then ```composer create-project laravel/laravel```
 
 ```php artisan serve```
 
-### Run webpack mix watcher
+### Run webpack watcher to detect changes in files and hot reload
 
 ```npm run hot```
 
