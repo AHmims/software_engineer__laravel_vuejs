@@ -18,6 +18,10 @@ Then ```composer create-project laravel/laravel```
 
 ```php artisan serve```
 
+### Run tests
+
+```php artisan test```
+
 ### Run webpack watcher to detect changes in files and hot reload
 
 A mix of
