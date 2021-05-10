@@ -14,7 +14,9 @@
       </div>
     </div>
     <!-- main -->
-    <div class="flex-1 w-full bg-red-300 my-10 overflow-y-auto"></div>
+    <div class="flex-1 w-full my-10 overflow-y-auto">
+      <Product :product="product" />
+    </div>
     <!-- footer -->
     <div class="w-full flex flex-col items-center bg-gray-100 p-4 rounded-lg">
       <h4>Software Engineer @ Laravel VueJs - Coding challenge</h4>
@@ -24,6 +26,7 @@
 <script>
 import SortButton from "./components/sortButton.vue";
 import Select from "./components/select.vue";
+import Product from "./components/product.vue";
 
 let data = [
   {
@@ -41,10 +44,19 @@ export default {
   components: {
     SortButton,
     Select,
+    Product,
   },
   data() {
     return {
       categories: data,
+      product: {
+        name: "Iphone 12",
+        category: "pain",
+        price: 100,
+        desc: "lorem jqhksj hqshqkjdkqsjdhkqjsh kjqhsk qhksj hkqjs hkqjh kqjhk",
+        image:
+          "https://c0.lestechnophiles.com/images.frandroid.com/wp-content/uploads/2020/10/iphone-12-frandroid-2020.png?resize=580,580",
+      },
     };
   },
 };
