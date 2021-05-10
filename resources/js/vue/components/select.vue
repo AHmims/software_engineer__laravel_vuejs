@@ -4,7 +4,7 @@
   >
     <option value="null" disabled selected>Choose a value</option>
     <option v-for="value in values" :key="value.id" :value="value.id">
-      {{ value.text }}
+      {{ value.name }}
     </option>
   </select>
 </template>
@@ -16,6 +16,9 @@ export default {
       type: Array,
       required: false,
     },
+  },
+  mounted() {
+    console.log("slm");
   },
 };
 </script>

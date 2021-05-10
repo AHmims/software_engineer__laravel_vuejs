@@ -1,5 +1,6 @@
 <template>
   <button
+    @click="$emit('click', icon)"
     class="flex items-center px-6 py-3 rounded-[16px] space-x-1.5 border-[3px] border-gray-200"
   >
     <svg
@@ -34,5 +35,8 @@
 <script>
 export default {
   props: ["icon", "text"],
+  mounted() {
+    console.log("slm");
+  },
 };
 </script>
