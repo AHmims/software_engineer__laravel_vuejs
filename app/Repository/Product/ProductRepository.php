@@ -55,7 +55,7 @@ class ProductRepository implements ProductRepositoryInterface
             $product->categories()->saveMany($categories);
             return "good";
         } catch (Exception $e) {
-            return $e->getMessage();
+            abort(500);
         }
     }
     //
@@ -86,7 +86,7 @@ class ProductRepository implements ProductRepositoryInterface
             //
             return $product;
         } catch (Exception $e) {
-            return null;
+            abort(500);
         }
     }
 }

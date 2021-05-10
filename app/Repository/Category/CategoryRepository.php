@@ -20,7 +20,7 @@ class CategoryRepository implements CategoryRepositoryInterface
             $category->save();
             return "good";
         } catch (Exception $e) {
-            return $e->getMessage();
+            abort(500);
         }
     }
     //
@@ -31,7 +31,7 @@ class CategoryRepository implements CategoryRepositoryInterface
                 throw new Exception("Error Processing Value");
             return Category::find($id);
         } catch (Exception $e) {
-            return null;
+            abort(500);
         }
     }
     //
