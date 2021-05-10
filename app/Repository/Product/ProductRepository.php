@@ -2,6 +2,7 @@
 
 namespace App\Repository\Product;
 
+use App\Models\Category;
 use App\Models\Product;
 use App\Repository\Category\CategoryRepositoryInterface;
 use Exception;
@@ -21,10 +22,21 @@ class ProductRepository implements ProductRepositoryInterface
     //Get all products
     public function getAll($byPriceAsc = true)
     {
-        $categories = Product::with("categories")->get();
-        $array = $byPriceAsc ? $categories->sortBy("price") : $categories->sortByDesc("price");
+        $products = Product::with("categories")->get();
+        $array = $byPriceAsc ? $products->sortBy("price") : $products->sortByDesc("price");
         return $array->values()->all();
     }
+    //Get all products by category
+    public function getAllByCategory($byPriceAsc, $category = -1)
+    {
+        if ($category != null && $category > -1) {
+            $products = Category::with(["products" => function ($q) use ($byPriceAsc) {
+                $q->orderBy("price", $byPriceAsc == "true" ? "asc" : "desc");
+            }])->where("id", $category)->get()->pluck('products');
+            return $products->values()->get(0);
+        } else return $this->getAll();
+    }
+
     //Add product
     public function store(Request $request)
     {

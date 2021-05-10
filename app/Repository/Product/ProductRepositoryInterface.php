@@ -9,5 +9,6 @@ use Illuminate\Http\Request;
 interface ProductRepositoryInterface
 {
     public function getAll($byPriceAsc);
+    public function getAllByCategory($byPriceAsc, $category);
     public function store(Request $request);
 }

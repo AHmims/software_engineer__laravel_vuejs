@@ -24,8 +24,19 @@ class ProductController extends Controller
     public function index(Request $request)
     {
         $order = $request->query('order');
-        //return $order == "asc" ? true : false;
         $products = $this->productRepository->getAll($order != null ? $order == "asc" : false);
+
+        return $products;
+    }
+
+    public function index2(Request $request)
+    {
+        $order = $request->query('order');
+        if ($order == null)
+            $order = false;
+        $category = $request->query('category');
+        //return $order == "asc" ? true : false;
+        $products = $this->productRepository->getAllByCategory($order, $category);
 
         return $products;
     }

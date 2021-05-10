@@ -23,6 +23,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::prefix('/product')->group(function () {
     Route::get('/all', [ProductController::class, 'index']);
+    Route::get('/all/category', [ProductController::class, 'index2']);
     Route::post('/add', [ProductController::class, 'store']);
 });
 

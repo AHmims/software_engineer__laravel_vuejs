@@ -10,7 +10,7 @@
       <div class="w-[3px] h-2/3 bg-gray-200 rounded-full"></div>
       <div class="flex space-x-4 items-center">
         <span>Filter by categorie:</span>
-        <Select :values="categories" />
+        <Select :values="categories" @change="filter" />
       </div>
     </div>
     <!-- main -->
@@ -42,14 +42,37 @@ export default {
       categories: [{ id: "1", name: "s" }],
       products: [],
       sortAsc: true,
+      activeCategory: -1,
     };
   },
   methods: {
+    async handler(order) {
+      if (this.activeCategory == -1) await this.getAllProducts(order);
+      else {
+        this.filter();
+      }
+    },
     async getAllProducts(order) {
       this.sortAsc = order == "asc";
       try {
         let response = await axios.get("api/product/all", {
           params: { order },
+        });
+        this.products = response.data;
+      } catch (err) {
+        console.error(err);
+        alert("Error");
+        this.products = [];
+      }
+    },
+    async filter(category = null) {
+      if (category != null)
+        this.activeCategory =
+          category.target.options[category.target.selectedIndex].value;
+      //
+      try {
+        let response = await axios.get("api/product/all/category", {
+          params: { order: this.sortAsc, category: this.activeCategory },
         });
         this.products = response.data;
       } catch (err) {

@@ -1911,22 +1911,54 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: "s"
       }],
       products: [],
-      sortAsc: true
+      sortAsc: true,
+      activeCategory: -1
     };
   },
   methods: {
-    getAllProducts: function getAllProducts(order) {
+    handler: function handler(order) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.sortAsc = order == "asc";
-                _context.prev = 1;
-                _context.next = 4;
+                if (!(_this.activeCategory == -1)) {
+                  _context.next = 5;
+                  break;
+                }
+
+                _context.next = 3;
+                return _this.getAllProducts(order);
+
+              case 3:
+                _context.next = 6;
+                break;
+
+              case 5:
+                _this.filter();
+
+              case 6:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getAllProducts: function getAllProducts(order) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.sortAsc = order == "asc";
+                _context2.prev = 1;
+                _context2.next = 4;
                 return axios.get("api/product/all", {
                   params: {
                     order: order
@@ -1934,48 +1966,91 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 4:
-                response = _context.sent;
-                _this.products = response.data;
-                _context.next = 13;
+                response = _context2.sent;
+                _this2.products = response.data;
+                _context2.next = 13;
                 break;
 
               case 8:
-                _context.prev = 8;
-                _context.t0 = _context["catch"](1);
-                console.error(_context.t0);
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                console.error(_context2.t0);
                 alert("Error");
-                _this.products = [];
+                _this2.products = [];
 
               case 13:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee, null, [[1, 8]]);
+        }, _callee2, null, [[1, 8]]);
+      }))();
+    },
+    filter: function filter() {
+      var _arguments = arguments,
+          _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+        var category, response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                category = _arguments.length > 0 && _arguments[0] !== undefined ? _arguments[0] : null;
+                if (category != null) _this3.activeCategory = category.target.options[category.target.selectedIndex].value; //
+
+                _context3.prev = 2;
+                _context3.next = 5;
+                return axios.get("api/product/all/category", {
+                  params: {
+                    order: _this3.sortAsc,
+                    category: _this3.activeCategory
+                  }
+                });
+
+              case 5:
+                response = _context3.sent;
+                _this3.products = response.data;
+                _context3.next = 14;
+                break;
+
+              case 9:
+                _context3.prev = 9;
+                _context3.t0 = _context3["catch"](2);
+                console.error(_context3.t0);
+                alert("Error");
+                _this3.products = [];
+
+              case 14:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, null, [[2, 9]]);
       }))();
     }
   },
   mounted: function mounted() {
-    var _this2 = this;
+    var _this4 = this;
 
-    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+    return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
-          switch (_context2.prev = _context2.next) {
+          switch (_context4.prev = _context4.next) {
             case 0:
               axios.get("api/category/all").then(function (response) {
-                _this2.categories = response.data;
+                _this4.categories = response.data;
               }); //
 
-              _context2.next = 3;
-              return _this2.getAllProducts("asc");
+              _context4.next = 3;
+              return _this4.getAllProducts("asc");
 
             case 3:
             case "end":
-              return _context2.stop();
+              return _context4.stop();
           }
         }
-      }, _callee2);
+      }, _callee4);
     }))();
   }
 });
@@ -2056,15 +2131,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     values: {
       type: Array,
       required: false
     }
-  },
-  mounted: function mounted() {
-    console.log("slm");
   }
 });
 
@@ -2116,10 +2189,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  props: ["icon", "text"],
-  mounted: function mounted() {
-    console.log("slm");
-  }
+  props: ["icon", "text"]
 });
 
 /***/ }),
@@ -20694,7 +20764,10 @@ var render = function() {
             [
               _c("span", [_vm._v("Filter by categorie:")]),
               _vm._v(" "),
-              _c("Select", { attrs: { values: _vm.categories } })
+              _c("Select", {
+                attrs: { values: _vm.categories },
+                on: { change: _vm.filter }
+              })
             ],
             1
           )
@@ -20849,7 +20922,12 @@ var render = function() {
     "select",
     {
       staticClass:
-        "px-6 py-3 rounded-[16px] space-x-1.5 border-[3px] border-gray-200"
+        "px-6 py-3 rounded-[16px] space-x-1.5 border-[3px] border-gray-200",
+      on: {
+        change: function($event) {
+          return _vm.$emit("change", $event)
+        }
+      }
     },
     [
       _c("option", { attrs: { value: "null", disabled: "", selected: "" } }, [

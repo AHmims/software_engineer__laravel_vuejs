@@ -35,8 +35,5 @@
 <script>
 export default {
   props: ["icon", "text"],
-  mounted() {
-    console.log("slm");
-  },
 };
 </script>
