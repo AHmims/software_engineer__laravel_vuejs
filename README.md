@@ -18,6 +18,10 @@ Then ```composer create-project laravel/laravel```
 
 ```php artisan serve```
 
+### Run webpack mix watcher
+
+```npm run hot```
+
 ### Create migrations
 
 ```php artisan make:migration <migration_name>```
