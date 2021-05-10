@@ -4,7 +4,7 @@
     <!-- title -->
     <h1 class="text-3xl">Products management app</h1>
     <!-- menu -->
-    <form class="w-full mt-6 flex justify-center items-center space-x-4">
+    <div class="w-full mt-6 flex justify-center items-center space-x-4">
       <SortButton text="Price" icon="asc" @click="getAllProducts" />
       <SortButton text="Price" icon="desc" @click="getAllProducts" />
       <div class="w-[3px] h-2/3 bg-gray-200 rounded-full"></div>
@@ -12,7 +12,7 @@
         <span>Filter by categorie:</span>
         <Select :values="categories" />
       </div>
-    </form>
+    </div>
     <!-- main -->
     <div class="flex-1 w-full my-10 overflow-y-auto grid grid-cols-3 gap-6">
       <div v-for="product in products" :key="product.id" :value="product.id">
@@ -41,14 +41,15 @@ export default {
     return {
       categories: [{ id: "1", name: "s" }],
       products: [],
+      sortAsc: true,
     };
   },
   methods: {
     async getAllProducts(order) {
-      console.log(order);
+      this.sortAsc = order == "asc";
       try {
         let response = await axios.get("api/product/all", {
-          order,
+          params: { order },
         });
         this.products = response.data;
       } catch (err) {

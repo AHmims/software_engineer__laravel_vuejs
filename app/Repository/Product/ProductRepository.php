@@ -19,10 +19,11 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     //Get all products
-    public function getAll($byPriceAsc = true): Collection
+    public function getAll($byPriceAsc = true)
     {
         $categories = Product::with("categories")->get();
-        return $byPriceAsc ? $categories->sortBy("price") : $categories->sortByDesc("price");
+        $array = $byPriceAsc ? $categories->sortBy("price") : $categories->sortByDesc("price");
+        return $array->values()->all();
     }
     //Add product
     public function store(Request $request)

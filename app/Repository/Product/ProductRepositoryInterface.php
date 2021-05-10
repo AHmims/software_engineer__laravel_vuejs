@@ -8,6 +8,6 @@ use Illuminate\Http\Request;
 
 interface ProductRepositoryInterface
 {
-    public function getAll($byPriceAsc): Collection;
+    public function getAll($byPriceAsc);
     public function store(Request $request);
 }
