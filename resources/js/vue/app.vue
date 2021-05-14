@@ -25,6 +25,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import SortButton from "./components/sortButton.vue";
 import Select from "./components/select.vue";
