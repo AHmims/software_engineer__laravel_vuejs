@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
+    #region Dependencies injection
 
     private $productRepository;
 
@@ -16,12 +17,14 @@ class ProductController extends Controller
         $this->productRepository = $productRepository;
     }
 
+    #endregion
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \
      */
-    public function index(Request $request)
+    public function getAll(Request $request)
     {
         $order = $request->query('order');
         $products = $this->productRepository->getAll($order != null ? $order != "desc" : false);
@@ -60,50 +63,5 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         return $this->productRepository->store($request);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
