@@ -19,12 +19,12 @@ class ProductRepository implements ProductRepositoryInterface
         $this->categoryRepository = $categoryRepository;
     }
 
-    //Get all products
-    public function getAll($byPriceAsc = true)
+    /**
+     * 
+     */
+    public function getAll(): Collection
     {
-        $products = Product::with("categories")->get();
-        $array = $byPriceAsc ? $products->sortBy("price") : $products->sortByDesc("price");
-        return $array->values()->all();
+        return Product::with("categories")->get();
     }
     //Get all products by category
     public function getAllByCategory($byPriceAsc, $category = -1)

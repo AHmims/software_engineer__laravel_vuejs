@@ -5,6 +5,7 @@ namespace App\Dto;
 class ProductDto
 {
     #region Fields declaration
+    private int $id;
     private string $name;
     private string $description;
     private $price;
@@ -17,11 +18,13 @@ class ProductDto
      * @param string $name
      * @param string $description
      * @param double $price
-     * @param string $image;
-     * @param int[] $categories;
+     * @param string $image
+     * @param array $categories
+     * @param int $id;
      */
-    public function __construct(string $name, string $description, $price, string $image, $categories)
+    public function __construct(string $name, string $description, $price, string $image, $categories, int $id = -1)
     {
+        $this->id = $id;
         $this->name = $name;
         $this->description = $description;
         $this->price = $price;
@@ -30,6 +33,25 @@ class ProductDto
     }
     //
 
+    /**
+     * Get the value of id
+     *
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the value of id
+     *
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * Get the value of name
@@ -120,7 +142,7 @@ class ProductDto
     /**
      * Set the value of categories
      * 
-     * @param int[] $categories
+     * @param array() $categories
      */
     public function setCategories($categories): void
     {

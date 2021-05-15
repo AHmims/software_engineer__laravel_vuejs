@@ -1912,7 +1912,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: "s"
       }],
       products: [],
-      sortAsc: true,
+      sortValue: "asc",
       activeCategory: -1
     };
   },
@@ -1957,26 +1957,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.sortAsc = order == "asc";
+                _this2.sortValue = order;
                 _context2.prev = 1;
                 _context2.next = 4;
-                return axios.get("api/product/all", {
+                return axios.get("api/product", {
                   params: {
-                    order: order
+                    sortKey: "price",
+                    sortValue: _this2.sortValue
                   }
                 });
 
               case 4:
                 response = _context2.sent;
+                console.log(response);
                 _this2.products = response.data;
                 _context2.next = 13;
                 break;
 
-              case 8:
-                _context2.prev = 8;
+              case 9:
+                _context2.prev = 9;
                 _context2.t0 = _context2["catch"](1);
-                console.error(_context2.t0);
-                alert("Error");
+                console.error(_context2.t0); // alert("Error");
+
                 _this2.products = [];
 
               case 13:
@@ -1984,7 +1986,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[1, 8]]);
+        }, _callee2, null, [[1, 9]]);
       }))();
     },
     filter: function filter() {
@@ -2004,7 +2006,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context3.next = 5;
                 return axios.get("api/product/all/category", {
                   params: {
-                    order: _this3.sortAsc,
+                    order: _this3.sortValue,
                     category: _this3.activeCategory
                   }
                 });
@@ -2039,14 +2041,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              axios.get("api/category/all").then(function (response) {
-                _this4.categories = response.data;
-              }); //
-
-              _context4.next = 3;
+              _context4.next = 2;
               return _this4.getAllProducts("asc");
 
-            case 3:
+            case 2:
             case "end":
               return _context4.stop();
           }

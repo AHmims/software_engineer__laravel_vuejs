@@ -42,7 +42,7 @@ export default {
     return {
       categories: [{ id: "1", name: "s" }],
       products: [],
-      sortAsc: true,
+      sortValue: "asc",
       activeCategory: -1,
     };
   },
@@ -54,15 +54,16 @@ export default {
       }
     },
     async getAllProducts(order) {
-      this.sortAsc = order == "asc";
+      this.sortValue = order;
       try {
-        let response = await axios.get("api/product/all", {
-          params: { order },
+        let response = await axios.get("api/product", {
+          params: { sortKey: "price", sortValue: this.sortValue },
         });
+        console.log(response);
         this.products = response.data;
       } catch (err) {
         console.error(err);
-        alert("Error");
+        // alert("Error");
         this.products = [];
       }
     },
@@ -73,7 +74,7 @@ export default {
       //
       try {
         let response = await axios.get("api/product/all/category", {
-          params: { order: this.sortAsc, category: this.activeCategory },
+          params: { order: this.sortValue, category: this.activeCategory },
         });
         this.products = response.data;
       } catch (err) {
@@ -84,9 +85,9 @@ export default {
     },
   },
   async mounted() {
-    axios.get("api/category/all").then((response) => {
+    /*axios.get("api/category/all").then((response) => {
       this.categories = response.data;
-    });
+    });*/
     //
     await this.getAllProducts("asc");
   },

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services;
+namespace App\Services\Product;
 
 use App\Dto\ProductDto;
 
@@ -8,21 +8,23 @@ interface ProductServiceInterface
 {
     /**
      * * Get a list of products
-     * @return array<ProductDto>
+     * @param string $sortKey | Sorting pointer, can be 'price' || 'name'
+     * @param string $sortValue | Sorting direction, can be 'asc' || 'desc'
+     * @return array<ProductDto> | List of all products
      */
-    public function getAll(): array;
+    public function getAll(string $sortKey, string $sortValue): array;
 
     /**
      * * Get a product by its id
-     * @param string $id;
-     * @return ProductDto
+     * @param string $id | id of product to get
+     * @return ProductDto | Found product
      */
     public function get(string $id): ProductDto;
 
     /**
      * * Insert a product
-     * @param ProductDto $product
-     * @return ProductDto
+     * @param ProductDto $product | Data of product to insert
+     * @return ProductDto | Inserted product
      */
     public function add(ProductDto $product): ProductDto;
 }
