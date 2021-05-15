@@ -34,8 +34,9 @@ class ProductController extends Controller
      * Returns a list of all products filtered by Category
      * @param Request $request
      */
-    public function getAllByCategory(Request $request)
+    public function getAllByCategory(Request $request, $category)
     {
+        /*
         $order = $request->query('order');
         if ($order == null)
             $order = false;
@@ -44,6 +45,9 @@ class ProductController extends Controller
         $products = $this->productRepository->getAllByCategory($order, $category);
 
         return $products;
+        //
+        */
+        return $category;
     }
 
     /**
