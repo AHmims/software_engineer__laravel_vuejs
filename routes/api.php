@@ -29,7 +29,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 
 Route::prefix('/product')->group(function () {
-    Route::get('/', [ProductController::class, 'getAll']);
+    Route::get('/', [ProductController::class, 'getAll'])->middleware('product.listing');
     Route::get('/{id}', [ProductController::class], 'index2');
     Route::get('category/{category}', [ProductController::class, 'index2']);
     Route::post('/', [ProductController::class, 'store']);

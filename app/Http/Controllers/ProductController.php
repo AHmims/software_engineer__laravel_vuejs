@@ -19,7 +19,7 @@ class ProductController extends Controller
     #endregion
 
     /**
-     * Display a listing of the resource.
+     * Returns a list of all Products
      * @param Request $request
      * -> @param string $request->query('sortKey') | Sorting pointer
      * -> @param string $request->query('sortValue') | Sorting method
@@ -30,7 +30,11 @@ class ProductController extends Controller
         return $this->productService->getAll($request->query('sortKey'), $request->query('sortValue'));
     }
 
-    public function index2(Request $request)
+    /**
+     * Returns a list of all products filtered by Category
+     * @param Request $request
+     */
+    public function getAllByCategory(Request $request)
     {
         $order = $request->query('order');
         if ($order == null)

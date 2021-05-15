@@ -27,7 +27,7 @@ class CategoryRepository implements CategoryRepositoryInterface
     }
 
     /**
-     * TODO Exception manager
+     * 
      */
     public function get(int $id): Category
     {
