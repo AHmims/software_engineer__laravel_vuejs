@@ -20,9 +20,7 @@
       </div>
     </div>
     <!-- footer -->
-    <div class="w-full flex flex-col items-center bg-gray-100 p-4 rounded-lg">
-      <h4>Software Engineer @ Laravel VueJs - Coding challenge</h4>
-    </div>
+    <Footer />
   </div>
 </template>
 
@@ -30,6 +28,7 @@
 import SortButton from "./components/sortButton.vue";
 import Select from "./components/select.vue";
 import Product from "./components/product.vue";
+import Footer from "./components/footer.vue";
 
 export default {
   name: "App",
@@ -37,10 +36,11 @@ export default {
     SortButton,
     Select,
     Product,
+    Footer,
   },
   data: () => {
     return {
-      categories: [{ id: "1", name: "s" }],
+      categories: [],
       products: [],
       sortValue: "asc",
       activeCategory: -1,
@@ -90,6 +90,8 @@ export default {
     });*/
     //
     await this.getAllProducts("asc");
+
+    // th.logServerError();
   },
 };
 </script>
