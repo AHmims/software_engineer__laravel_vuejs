@@ -11,14 +11,14 @@ use Illuminate\Http\Request;
 interface ProductRepositoryInterface
 {
     /**
-     * Get all products from database
+     * * Get all products from database
      * 
      * @return Collection;
      */
     public function getAll(): Collection;
 
     /**
-     * Get Product by id
+     * * Get Product by id
      * 
      * @param int $productId
      * @return Product
@@ -26,7 +26,7 @@ interface ProductRepositoryInterface
     public function get(int $productId): ?Product;
 
     /**
-     * Insert new Product
+     * * Insert new Product
      * 
      * @param Product $product
      * @param array<Category> $categories

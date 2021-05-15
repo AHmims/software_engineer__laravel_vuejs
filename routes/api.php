@@ -22,6 +22,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /**
  * Api endpoints for "product" route
+ * 
  * * [GET '/'] => returns a list of products 
  * * [GET '/{productId}'] => returns a product that matches the provided id
  * * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
@@ -37,13 +38,12 @@ Route::prefix('/product')->group(function () {
 
 /**
  * Api endpoints for "category" route
- * TODO * [GET '/'] => returns a list of categories
+ * 
+ * * [GET '/'] => returns a list of categories
  * TODO * [GET '/{categoryId}'] => returns a category that matches the provided id
  * TODO * [POST '/'] => insert a new category
  */
 
 Route::prefix('/category')->group(function () {
-    Route::get('/', [CategoryController::class, 'index']);
-    Route::get('/{categoryId}', [CategoryController::class, 'index']);
-    Route::post('/', [CategoryController::class, 'store']);
+    Route::get('/', [CategoryController::class, 'getAll']);
 });

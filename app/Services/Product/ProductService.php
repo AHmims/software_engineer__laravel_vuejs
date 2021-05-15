@@ -52,10 +52,10 @@ class ProductService implements ProductServiceInterface
             //
             // Map raw data to ProductDto
             $tempArray = $productsCollection->values()->all();
-            error_log(json_encode($tempArray));
             for ($i = 0; $i < sizeof($tempArray); $i++) {
                 $obj = $tempArray[$i];
                 //
+                $objId = $obj->id;
                 $objName = $obj->name;
                 $objDescription = $obj->description;
                 $objPrice = $obj->price;
@@ -67,7 +67,7 @@ class ProductService implements ProductServiceInterface
                     array_push($objCategories, $categoryDto);
                 }
                 //
-                $product = new ProductDto($objName, $objDescription, $objPrice, $objImage, $objCategories);
+                $product = new ProductDto($objName, $objDescription, $objPrice, $objImage, $objCategories, $objId);
                 array_push($productsArray, $product);
             }
         } //else return an empty array
@@ -131,7 +131,7 @@ class ProductService implements ProductServiceInterface
     /**
      * TODO create custom exception handler
      */
-    public function add(string $name, string $description, $price, string $image, array $categories):ProductDto
+    public function add(string $name, string $description, $price, string $image, array $categories): ProductDto
     {
         $productDto = new ProductDto($name, $description, $price, $image, $categories);
         $isValid = $productDto->validate();

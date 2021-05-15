@@ -12,23 +12,6 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * 
      */
-    public function store(Request $request)
-    {
-        try {
-            $parentCategory = $this->get($request->parent);
-            $category = new Category();
-            $category->name = $request->name;
-            $category->parent_category = $parentCategory != null ? $parentCategory->id : null;
-            $category->save();
-            return "good";
-        } catch (Exception $e) {
-            abort(500);
-        }
-    }
-
-    /**
-     * 
-     */
     public function get(int $id): ?Category
     {
         return Category::find($id);
@@ -37,10 +20,8 @@ class CategoryRepository implements CategoryRepositoryInterface
     /**
      * 
      */
-    public function getAll($byPriceAsc = true): Collection
+    public function getAll(): Collection
     {
-        return Category::with(["products" => function ($q) use ($byPriceAsc) {
-            $q->orderBy("price", $byPriceAsc ? "asc" : "desc");
-        }])->get();
+        return Category::with("products")->get();
     }
 }

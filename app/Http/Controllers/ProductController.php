@@ -21,7 +21,8 @@ class ProductController extends Controller
     #endregion
 
     /**
-     * Returns a list of all Products
+     * * Returns a list of all Products
+     * 
      * @param Request $request
      * -> @param string $request->query('sortKey') | Sorting pointer
      * -> @param string $request->query('sortValue') | Sorting method
@@ -33,7 +34,8 @@ class ProductController extends Controller
     }
 
     /**
-     * Returns a list of all products filtered by Category
+     * * Returns a list of all products filtered by Category
+     * 
      * @param Request $request
      * -> @param string $request->query('sortKey') | Sorting pointer
      * -> @param string $request->query('sortValue') | Sorting method
@@ -46,7 +48,8 @@ class ProductController extends Controller
     }
 
     /**
-     * Returns the request product by id
+     * * Returns the request product by id
+     * 
      * @param int $productId
      * @return ProductDto
      */
@@ -56,7 +59,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Add new product
+     * * Add new product
      *
      * @param Request $request
      * -> @param string $request->name | Product name

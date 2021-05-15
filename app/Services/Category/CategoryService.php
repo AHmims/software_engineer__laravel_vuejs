@@ -38,4 +38,28 @@ class CategoryService implements CategoryServiceInterface
         //
         return new CategoryDto($catName, $catParent, $catId);
     }
+
+    /**
+     * 
+     */
+    public function getAll(): array
+    {
+        $categoriesArray = array();
+        //
+        $categoriesCollection = $this->categoryRepository->getAll();
+        if ($categoriesCollection->isNotEmpty()) {
+            $tempArray = $categoriesCollection->values()->all();
+            for ($i = 0; $i < sizeof($tempArray); $i++) {
+                $obj = $tempArray[$i];
+                //
+                $objId = $obj->id;
+                $objName = $obj->name;
+                $objParent = $this->get($obj->parent_category != null ? $obj->parent_category : -1);
+                //
+                $category = new CategoryDto($objName, $objParent, $objId);
+                array_push($categoriesArray, $category);
+            }
+        } //else return an empty array
+        return $categoriesArray;
+    }
 }

@@ -10,19 +10,17 @@ use Illuminate\Http\Request;
 interface CategoryRepositoryInterface
 {
     /**
+     * * Get category by id
      * 
-     */
-    public function store(Request $request);
-
-    /**
-     * Get category by id
      * @param int $id
      * @return Category || null
      */
     public function get(int $id): ?Category;
 
     /**
+     * * Get listing of all categories
      * 
+     * @return Collection
      */
-    public function getAll($byPriceAsc): Collection;
+    public function getAll(): Collection;
 }

@@ -3,91 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Repository\Category\CategoryRepositoryInterface;
+use App\Services\Category\CategoryServiceInterface;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    #region Dependencies injection
 
-    private $categoryRepository;
+    private $categoryService;
 
-    public function __construct(CategoryRepositoryInterface $categoryRepository)
+    public function __construct(CategoryServiceInterface $categoryService)
     {
-        $this->categoryRepository = $categoryRepository;
+        $this->categoryService = $categoryService;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        return $this->categoryRepository->getAll();
-    }
+    #endregion
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * * Returns a list of all Categories
+     * 
+     * @param Request $request
+     * @return array<CategoryDto>
      */
-    public function create()
+    public function getAll(): array
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        return $this->categoryRepository->store($request);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return $this->categoryService->getAll();
     }
 }

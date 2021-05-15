@@ -8,6 +8,7 @@ interface ProductServiceInterface
 {
     /**
      * * Get a list of products
+     * 
      * @param string $sortKey | Sorting pointer, can be 'price' || 'name'
      * @param string $sortValue | Sorting direction, can be 'asc' || 'desc'
      * @return array<ProductDto> | List of all products
@@ -16,6 +17,7 @@ interface ProductServiceInterface
 
     /**
      * * Get a list of products filtered by category
+     * 
      * @param string $sortKey | Sorting pointer, can be 'price' || 'name'
      * @param string $sortValue | Sorting direction, can be 'asc' || 'desc'
      * @param int $categoryId | Category id
@@ -25,6 +27,7 @@ interface ProductServiceInterface
 
     /**
      * * Get a product by its id
+     * 
      * @param int $id | id of product to get
      * @return ProductDto | Found product
      */
@@ -32,6 +35,7 @@ interface ProductServiceInterface
 
     /**
      * * Insert a product
+     * 
      * @param string $nam | Product name
      * @param string $description | Product description
      * @param double $price | Product price
