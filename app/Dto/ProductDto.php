@@ -2,7 +2,9 @@
 
 namespace App\Dto;
 
+use Illuminate\Support\Facades\Validator;
 use JsonSerializable;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ProductDto implements JsonSerializable
 {
@@ -33,10 +35,39 @@ class ProductDto implements JsonSerializable
         $this->image = $image;
         $this->categories = $categories;
     }
+
     //
     public function jsonSerialize(): array
     {
         return get_object_vars($this);
+    }
+
+    /**
+     * Method to check if the Product data provided by the user is valid
+     */
+    public function validate(): bool
+    {
+        $validator = Validator::make(get_object_vars($this), [
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'image' => 'required|url',
+            'categories' => 'required|array'
+        ]);
+
+        // if valid
+        if (!$validator->fails()) {
+            //check if price is sup than 0
+            if ($this->price <= 0)
+                return false;
+            //check if categories array is only filled with integers
+            foreach ($this->categories as $category) {
+                if (is_string($category))
+                    return false;
+            }
+        }
+        //
+        return true;
     }
 
     //

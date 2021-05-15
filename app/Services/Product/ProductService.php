@@ -4,6 +4,8 @@ namespace App\Services\Product;
 
 use App\Dto\CategoryDto;
 use App\Dto\ProductDto;
+use App\Models\Product;
+use App\Repository\Category\CategoryRepositoryInterface;
 use App\Repository\Product\ProductRepositoryInterface;
 use App\Services\Category\CategoryServiceInterface;
 use Exception;
@@ -12,12 +14,13 @@ class ProductService implements ProductServiceInterface
 {
     #region Dependencies injection
 
-    private $productRepository, $categoryService;
+    private $productRepository, $categoryService, $categoryRepository;
 
-    public function __construct(ProductRepositoryInterface $productRepository, CategoryServiceInterface $categoryService)
+    public function __construct(ProductRepositoryInterface $productRepository, CategoryServiceInterface $categoryService, CategoryRepositoryInterface $categoryRepository)
     {
         $this->productRepository = $productRepository;
         $this->categoryService = $categoryService;
+        $this->categoryRepository = $categoryRepository;
     }
 
     #endregion
@@ -126,10 +129,47 @@ class ProductService implements ProductServiceInterface
     }
 
     /**
-     * 
+     * TODO create custom exception handler
      */
-    public function add(ProductDto $product): ProductDto
+    public function add(string $name, string $description, $price, string $image, array $categories):ProductDto
     {
-        throw new Exception("Error Processing Request", 1);
+        $productDto = new ProductDto($name, $description, $price, $image, $categories);
+        $isValid = $productDto->validate();
+        //
+        if (!$isValid)
+            throw new Exception("Data is not valid", 1);
+        //
+        //Setup Product model
+        $product = new Product([
+            "name" => $productDto->getName(),
+            "description" => $productDto->getDescription(),
+            "price" => $productDto->getPrice(),
+            "image" => $productDto->getImage()
+        ]);
+        // Setup categories
+        $categories = array();
+        for ($i = 0; $i < count($productDto->getCategories()); $i++) {
+            $tempCategory = $this->categoryRepository->get($productDto->getCategories()[$i]);
+            if ($tempCategory == null)
+                throw new Exception("Bad category", 1);
+            $categories[$i] = $tempCategory;
+        }
+        //
+        //Insert product in DB
+        $product = $this->productRepository->add($product, $categories);
+        //
+        //Update ProductDto object
+        $productDto->setId($product->id);
+        $prodCategories = array();
+        //map Category to CategoryDto
+        foreach ($product->categories as $key => $category) {
+            $parentId = $category->parent_category == null ? -1 : $category->parent_category;
+            $categoryDto = new CategoryDto($category->name, $this->categoryService->get($parentId), $category->id);
+            array_push($prodCategories, $categoryDto);
+        }
+        $productDto->setCategories($prodCategories);
+        //
+
+        return $productDto;
     }
 }

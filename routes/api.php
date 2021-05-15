@@ -25,14 +25,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  * * [GET '/'] => returns a list of products 
  * * [GET '/{productId}'] => returns a product that matches the provided id
  * * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
- * TODO * [POST '/'] => insert a new product
+ * * [POST '/'] => insert a new product
  */
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'getAll'])->middleware('product.listing');
     Route::get('/{productId}', [ProductController::class, 'get'])->middleware('product.lookup');
     Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory'])->middleware(['product.listing', 'product.filtering']);
-    Route::post('/', [ProductController::class, 'store']);
+    Route::post('/', [ProductController::class, 'insert'])->middleware('product.insertion');
 });
 
 /**

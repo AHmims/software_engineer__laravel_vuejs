@@ -32,8 +32,12 @@ interface ProductServiceInterface
 
     /**
      * * Insert a product
-     * @param ProductDto $product | Data of product to insert
+     * @param string $nam | Product name
+     * @param string $description | Product description
+     * @param double $price | Product price
+     * @param string $image | Product image
+     * @param array<int> $categories | Product categories
      * @return ProductDto | Inserted product
      */
-    public function add(ProductDto $product): ProductDto;
+    public function add(string $name, string $description, $price, string $image, array $categories): ProductDto;
 }

@@ -20,12 +20,17 @@ interface ProductRepositoryInterface
     /**
      * Get Product by id
      * 
+     * @param int $productId
      * @return Product
      */
     public function get(int $productId): ?Product;
 
     /**
+     * Insert new Product
      * 
+     * @param Product $product
+     * @param array<Category> $categories
+     * @return void
      */
-    public function store(Request $request);
+    public function add(Product $product, array $categories): Product;
 }

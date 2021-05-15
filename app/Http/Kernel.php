@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'product.listing' => \App\Http\Middleware\EnsureProductListingParams::class,
         'product.filtering' => \App\Http\Middleware\EnsureProductFiltering::class,
         'product.lookup' => \App\Http\Middleware\EnsureProductLookup::class,
+        'product.insertion' => \App\Http\Middleware\ProductInsertionIntegrity::class,
     ];
 }

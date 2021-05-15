@@ -2,6 +2,7 @@
 
 namespace App\Repository\Product;
 
+use App\Dto\ProductDto;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repository\Category\CategoryRepositoryInterface;
@@ -39,56 +40,20 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::find($productId);
     }
 
-    //Add product
-    public function store(Request $request)
+    /**
+     * TODO Exception handler
+     */
+    public function add(Product $product, array $categories): Product
     {
-        try {
-            $product = $this->toProduct($request);
-            if ($product == null)
-                throw new Exception("Error Processing Request");
-            //
-
-            $categories = array();
-            for ($i = 0; $i < count($request->categories); $i++) {
-                $categories[$i] = $this->categoryRepository->get($request->categories[$i]);
-            }
-
-            $product->save();
-            $product->categories()->saveMany($categories);
-            return "good";
-        } catch (Exception $e) {
-            abort(500);
-        }
-    }
-    //
-    private function toProduct(Request $request)
-    {
-        try {
-            $product = new Product();
-            //
-            if ($request->name == null || strlen($request->name) <= 0)
-                throw new Exception("Bad name");
-            $product->name = $request->name;
-            //
-            if ($request->description == null || strlen($request->description) <= 0)
-                throw new Exception("Bad description");
-            $product->description = $request->description;
-            //
-            if ($request->price == null || $request->price <= 0)
-                throw new Exception("Bad price");
-            $product->price = $request->price;
-            //
-            if ($request->image == null || strlen($request->image) <= 0)
-                throw new Exception("Bad image");
-            $product->image = $request->image;
-            //
-            if (count($request->categories) == 0)
-                throw new Exception("No category");
-
-            //
-            return $product;
-        } catch (Exception $e) {
-            abort(500);
-        }
+        // try {
+        $product->save();
+        $product->categories()->saveMany($categories);
+        //
+        return $product->refresh();
+        // return $product;
+        // } catch (Exception $e) {
+        // var_dump($e);
+        // throw new Exception($e->getMessage(), 1);
+        // }
     }
 }

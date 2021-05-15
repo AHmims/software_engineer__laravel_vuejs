@@ -47,7 +47,7 @@ class ProductController extends Controller
 
     /**
      * Returns the request product by id
-     * @param string $productId
+     * @param int $productId
      * @return ProductDto
      */
     public function get(Request $request, $productId): ?ProductDto
@@ -56,13 +56,18 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Add new product
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * -> @param string $request->name | Product name
+     * -> @param string $request->description | Product description
+     * -> @param double $request->price | Product price
+     * -> @param string $request->image | Product image
+     * -> @param array<int> $request->categories | Product categories
+     * @return 
      */
-    public function store(Request $request)
+    public function insert(Request $request)
     {
-        return $this->productRepository->store($request);
+        return $this->productService->add($request->name, $request->description, $request->price, $request->image, $request->categories);
     }
 }
