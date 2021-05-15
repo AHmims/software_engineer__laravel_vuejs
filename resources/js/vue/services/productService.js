@@ -1,17 +1,25 @@
-export default class ProductService {
-    async getAllProducts(order) {
-        return new Promise((resolve, reject) => {
+export default {
+    getAll(order) {
+        return new Promise(async (resolve, reject) => {
             try {
                 let response = await axios.get("api/product", {
                     params: { sortKey: "price", sortValue: order },
                 });
-                console.log(response);
-                //
                 resolve(response.data);
-            } catch (err) {
-                console.error(err);
-                // alert("Error");
-                reject(err);
+            } catch (e) {
+                reject(e);
+            }
+        });
+    },
+    getAllByCategory(category, sortValue = 'asc', sortKey = 'price') {
+        return new Promise(async (resolve, reject) => {
+            try {
+                let response = await axios.get(`api/product/category/${category}`, {
+                    params: { sortKey, sortValue },
+                });
+                resolve(response.data);
+            } catch (e) {
+                reject(e);
             }
         });
     }

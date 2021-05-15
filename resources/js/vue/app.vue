@@ -29,6 +29,7 @@ import SortButton from "./components/sortButton.vue";
 import Select from "./components/select.vue";
 import Product from "./components/product.vue";
 import Footer from "./components/footer.vue";
+import { getAll, getAllByCategory } from "./services/productService.js";
 
 export default {
   name: "App",
@@ -48,39 +49,26 @@ export default {
   },
   methods: {
     async handler(order) {
-      if (this.activeCategory == -1) await this.getAllProducts(order);
-      else {
-        this.filter();
+      this.sortValue = order;
+      try {
+        this.products = await getAll(order);
+      } catch (e) {
+        th.logErrorActive("Error while getting products list");
       }
     },
     async getAllProducts(order) {
-      this.sortValue = order;
-      try {
-        let response = await axios.get("api/product", {
-          params: { sortKey: "price", sortValue: this.sortValue },
-        });
-        console.log(response);
-        this.products = response.data;
-      } catch (err) {
-        console.error(err);
-        // alert("Error");
-        this.products = [];
-      }
+      await this.handler(order);
     },
+
     async filter(category = null) {
       if (category != null)
         this.activeCategory =
           category.target.options[category.target.selectedIndex].value;
       //
       try {
-        let response = await axios.get("api/product/all/category", {
-          params: { order: this.sortValue, category: this.activeCategory },
-        });
-        this.products = response.data;
-      } catch (err) {
-        console.error(err);
-        alert("Error");
-        this.products = [];
+        this.products = await getAllByCategory(category, this.sortValue);
+      } catch (e) {
+        th.logErrorActive("Error while getting categories list");
       }
     },
   },
@@ -89,8 +77,7 @@ export default {
       this.categories = response.data;
     });*/
     //
-    await this.getAllProducts("asc");
-
+    //await this.getAllProducts("asc");
     // th.logServerError();
   },
 };

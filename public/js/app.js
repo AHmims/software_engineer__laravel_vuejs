@@ -1862,6 +1862,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_select_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/select.vue */ "./resources/js/vue/components/select.vue");
 /* harmony import */ var _components_product_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/product.vue */ "./resources/js/vue/components/product.vue");
 /* harmony import */ var _components_footer_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/footer.vue */ "./resources/js/vue/components/footer.vue");
+/* harmony import */ var _services_productService_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./services/productService.js */ "./resources/js/vue/services/productService.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -1898,6 +1899,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "App",
   components: {
@@ -1923,68 +1925,46 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!(_this.activeCategory == -1)) {
-                  _context.next = 5;
-                  break;
-                }
+                _this.sortValue = order;
+                _context.prev = 1;
+                _context.next = 4;
+                return (0,_services_productService_js__WEBPACK_IMPORTED_MODULE_5__.getAll)(order);
 
-                _context.next = 3;
-                return _this.getAllProducts(order);
-
-              case 3:
-                _context.next = 6;
+              case 4:
+                _this.products = _context.sent;
+                _context.next = 10;
                 break;
 
-              case 5:
-                _this.filter();
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](1);
+                th.logErrorActive("Error while getting products list");
 
-              case 6:
+              case 10:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee);
+        }, _callee, null, [[1, 7]]);
       }))();
     },
     getAllProducts: function getAllProducts(order) {
       var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
-        var response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this2.sortValue = order;
-                _context2.prev = 1;
-                _context2.next = 4;
-                return axios.get("api/product", {
-                  params: {
-                    sortKey: "price",
-                    sortValue: _this2.sortValue
-                  }
-                });
+                _context2.next = 2;
+                return _this2.handler(order);
 
-              case 4:
-                response = _context2.sent;
-                console.log(response);
-                _this2.products = response.data;
-                _context2.next = 13;
-                break;
-
-              case 9:
-                _context2.prev = 9;
-                _context2.t0 = _context2["catch"](1);
-                console.error(_context2.t0); // alert("Error");
-
-                _this2.products = [];
-
-              case 13:
+              case 2:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2, null, [[1, 9]]);
+        }, _callee2);
       }))();
     },
     filter: function filter() {
@@ -1992,7 +1972,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this3 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
-        var category, response;
+        var category;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
@@ -2002,47 +1982,40 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 _context3.prev = 2;
                 _context3.next = 5;
-                return axios.get("api/product/all/category", {
-                  params: {
-                    order: _this3.sortValue,
-                    category: _this3.activeCategory
-                  }
-                });
+                return (0,_services_productService_js__WEBPACK_IMPORTED_MODULE_5__.getAllByCategory)(category, _this3.sortValue);
 
               case 5:
-                response = _context3.sent;
-                _this3.products = response.data;
-                _context3.next = 14;
+                _this3.products = _context3.sent;
+                _context3.next = 11;
                 break;
 
-              case 9:
-                _context3.prev = 9;
+              case 8:
+                _context3.prev = 8;
                 _context3.t0 = _context3["catch"](2);
-                console.error(_context3.t0);
-                alert("Error");
-                _this3.products = [];
+                th.logErrorActive("Error while getting categories list");
 
-              case 14:
+              case 11:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3, null, [[2, 9]]);
+        }, _callee3, null, [[2, 8]]);
       }))();
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    /*axios.get("api/category/all").then((response) => {
+      this.categories = response.data;
+    });*/
+    //
+    //await this.getAllProducts("asc");
+    // th.logServerError();
 
     return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
-              return _this4.getAllProducts("asc");
-
-            case 2:
             case "end":
               return _context4.stop();
           }
@@ -2827,6 +2800,114 @@ function _logErrorActive() {
   logToast: logToast,
   logToastActive: logToastActive,
   logErrorActive: logErrorActive
+});
+
+/***/ }),
+
+/***/ "./resources/js/vue/services/productService.js":
+/*!*****************************************************!*\
+  !*** ./resources/js/vue/services/productService.js ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  getAll: function getAll(order) {
+    return new Promise( /*#__PURE__*/function () {
+      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(resolve, reject) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.prev = 0;
+                _context.next = 3;
+                return axios.get("api/product", {
+                  params: {
+                    sortKey: "price",
+                    sortValue: order
+                  }
+                });
+
+              case 3:
+                response = _context.sent;
+                resolve(response.data);
+                _context.next = 10;
+                break;
+
+              case 7:
+                _context.prev = 7;
+                _context.t0 = _context["catch"](0);
+                reject(_context.t0);
+
+              case 10:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, null, [[0, 7]]);
+      }));
+
+      return function (_x, _x2) {
+        return _ref.apply(this, arguments);
+      };
+    }());
+  },
+  getAllByCategory: function getAllByCategory(category) {
+    var sortValue = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'asc';
+    var sortKey = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : 'price';
+    return new Promise( /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(resolve, reject) {
+        var response;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.prev = 0;
+                _context2.next = 3;
+                return axios.get("api/product/category/".concat(category), {
+                  params: {
+                    sortKey: sortKey,
+                    sortValue: sortValue
+                  }
+                });
+
+              case 3:
+                response = _context2.sent;
+                resolve(response.data);
+                _context2.next = 10;
+                break;
+
+              case 7:
+                _context2.prev = 7;
+                _context2.t0 = _context2["catch"](0);
+                reject(_context2.t0);
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[0, 7]]);
+      }));
+
+      return function (_x3, _x4) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+  }
 });
 
 /***/ }),
