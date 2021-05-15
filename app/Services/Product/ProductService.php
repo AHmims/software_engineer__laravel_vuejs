@@ -72,11 +72,57 @@ class ProductService implements ProductServiceInterface
     }
 
     /**
-     * 
+     * ? It's better to recreate the function using a query with the given category
+     * ? Instead I decied to not do so and just reuse the above method to get all prodcuts
+     * ? Then do the filtering on the array
      */
-    public function get(int $id): ProductDto
+    public function getAllByCategory(string $sortKey, string $sortValue, int $categoryId): array
     {
-        throw new Exception("Error Processing Request", 1);
+        //Get a list of products
+        $productsArray = $this->getAll($sortKey, $sortValue);
+        //Apply the filter
+        foreach ($productsArray as $key => $product) {
+            //ProductDto $product
+            $exists = false;
+            foreach ($product->getCategories() as $category) {
+                //CategoryDto $category
+                if ($category->getId() == $categoryId) {
+                    $exists = true;
+                    break 1;
+                }
+            }
+            //
+            if (!$exists)
+                unset($productsArray[$key]);
+        }
+        //
+        return $productsArray;
+    }
+
+    /**
+     * TODO hadle non existing products
+     */
+    public function get(int $productId): ?ProductDto
+    {
+        if ($productId == -1)
+            return null;
+        //
+        $product = $this->productRepository->get($productId);
+        if ($product == null)
+            return null;
+        //
+        $prodName = $product->name;
+        $prodDescription = $product->description;
+        $prodPrice = $product->price;
+        $prodImage = $product->image;
+        $prodCategories = array();
+        foreach ($product->categories as $category) {
+            $parentId = $category->parent_category == null ? -1 : $category->parent_category;
+            $categoryDto = new CategoryDto($category->name, $this->categoryService->get($parentId), $category->id);
+            array_push($prodCategories, $categoryDto);
+        }
+        //
+        return new ProductDto($prodName, $prodDescription, $prodPrice, $prodImage, $prodCategories);
     }
 
     /**

@@ -62,7 +62,9 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 
         'product.listing' => \App\Http\Middleware\EnsureProductListingParams::class,
         'product.filtering' => \App\Http\Middleware\EnsureProductFiltering::class,
+        'product.lookup' => \App\Http\Middleware\EnsureProductLookup::class,
     ];
 }

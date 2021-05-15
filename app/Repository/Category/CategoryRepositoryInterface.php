@@ -19,7 +19,7 @@ interface CategoryRepositoryInterface
      * @param int $id
      * @return Category || null
      */
-    public function get(int $id): Category;
+    public function get(int $id): ?Category;
 
     /**
      * 

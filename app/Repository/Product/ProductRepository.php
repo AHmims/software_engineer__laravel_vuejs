@@ -31,17 +31,12 @@ class ProductRepository implements ProductRepositoryInterface
         return Product::with("categories")->get();
     }
 
-
-
-    //Get all products by category
-    public function getAllByCategory($byPriceAsc, $category = -1)
+    /**
+     * 
+     */
+    public function get(int $productId): ?Product
     {
-        if ($category != null && $category > -1) {
-            $products = Category::with(["products" => function ($q) use ($byPriceAsc) {
-                $q->orderBy("price", $byPriceAsc == "true" ? "asc" : "desc");
-            }])->where("id", $category)->get()->pluck('products');
-            return $products->values()->get(0);
-        } else return $this->getAll();
+        return Product::find($productId);
     }
 
     //Add product

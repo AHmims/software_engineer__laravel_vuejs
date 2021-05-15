@@ -23,27 +23,27 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /**
  * Api endpoints for "product" route
  * * [GET '/'] => returns a list of products 
- * TODO * [GET '/{id}'] => returns a product that matches the provided id
- * * [GET 'category/{category}'] => returns a list of products that belongs to the provided category
- * * [POST '/'] => insert a new product
+ * * [GET '/{productId}'] => returns a product that matches the provided id
+ * * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
+ * TODO * [POST '/'] => insert a new product
  */
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'getAll'])->middleware('product.listing');
-    Route::get('/{id}', [ProductController::class], 'index2');
-    Route::get('category/{category}', [ProductController::class, 'getAllByCategory'])->middleware(['product.listing', 'product.filtering']);
+    Route::get('/{productId}', [ProductController::class, 'get'])->middleware('product.lookup');
+    Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory'])->middleware(['product.listing', 'product.filtering']);
     Route::post('/', [ProductController::class, 'store']);
 });
 
 /**
  * Api endpoints for "category" route
- * * [GET '/'] => returns a list of categories
- * TODO * [GET '/{id}'] => returns a category that matches the provided id
- * * [POST '/'] => insert a new category
+ * TODO * [GET '/'] => returns a list of categories
+ * TODO * [GET '/{categoryId}'] => returns a category that matches the provided id
+ * TODO * [POST '/'] => insert a new category
  */
 
 Route::prefix('/category')->group(function () {
     Route::get('/', [CategoryController::class, 'index']);
-    Route::get('/{id}', [CategoryController::class, 'index']);
+    Route::get('/{categoryId}', [CategoryController::class, 'index']);
     Route::post('/', [CategoryController::class, 'store']);
 });

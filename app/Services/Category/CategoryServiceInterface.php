@@ -8,9 +8,9 @@ interface CategoryServiceInterface
 {
     /**
      * * Get a category by its id
-     * @param int $id id of category to get
+     * @param int $categoryId id of category to get
      * @return CategoryDto
      * @return null
      */
-    public function get(int $id): ?CategoryDto;
+    public function get(int $categoryId): ?CategoryDto;
 }

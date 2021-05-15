@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\ProductDto;
 use App\Services\Product\ProductServiceInterface;
 use Illuminate\Http\Request;
+use Symfony\Component\VarDumper\VarDumper;
 
 class ProductController extends Controller
 {
@@ -33,21 +35,24 @@ class ProductController extends Controller
     /**
      * Returns a list of all products filtered by Category
      * @param Request $request
+     * -> @param string $request->query('sortKey') | Sorting pointer
+     * -> @param string $request->query('sortValue') | Sorting method
+     * @param string $category
+     * @return array<ProductDto>
      */
-    public function getAllByCategory(Request $request, $category)
+    public function getAllByCategory(Request $request, $categoryId): array
     {
-        /*
-        $order = $request->query('order');
-        if ($order == null)
-            $order = false;
-        $category = $request->query('category');
-        //return $order == "asc" ? true : false;
-        $products = $this->productRepository->getAllByCategory($order, $category);
+        return $this->productService->getAllByCategory($request->query('sortKey'), $request->query('sortValue'), intval($categoryId));
+    }
 
-        return $products;
-        //
-        */
-        return $category;
+    /**
+     * Returns the request product by id
+     * @param string $productId
+     * @return ProductDto
+     */
+    public function get(Request $request, $productId): ?ProductDto
+    {
+        return $this->productService->get(intval($productId));
     }
 
     /**

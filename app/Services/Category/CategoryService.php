@@ -20,14 +20,14 @@ class CategoryService implements CategoryServiceInterface
     #endregion
 
     /**
-     * TODO check if int($id firld) can be null
+     * 
      */
-    public function get(int $id): ?CategoryDto
+    public function get(int $categoryId): ?CategoryDto
     {
-        if ($id == -1)
+        if ($categoryId == -1)
             return null;
         //
-        $category = $this->categoryRepository->get($id);
+        $category = $this->categoryRepository->get($categoryId);
         if ($category == null)
             return null;
         //
