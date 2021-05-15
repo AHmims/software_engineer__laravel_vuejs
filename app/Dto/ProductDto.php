@@ -2,7 +2,9 @@
 
 namespace App\Dto;
 
-class ProductDto
+use JsonSerializable;
+
+class ProductDto implements JsonSerializable
 {
     #region Fields declaration
     private int $id;
@@ -31,6 +33,12 @@ class ProductDto
         $this->image = $image;
         $this->categories = $categories;
     }
+    //
+    public function jsonSerialize(): array
+    {
+        return get_object_vars($this);
+    }
+
     //
 
     /**

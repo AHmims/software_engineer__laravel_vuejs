@@ -9,9 +9,20 @@ use Illuminate\Http\Request;
 
 interface CategoryRepositoryInterface
 {
+    /**
+     * 
+     */
     public function store(Request $request);
 
-    public function get(int $id);
+    /**
+     * Get category by id
+     * @param int $id
+     * @return Category || null
+     */
+    public function get(int $id): Category;
 
+    /**
+     * 
+     */
     public function getAll($byPriceAsc): Collection;
 }

@@ -2,7 +2,9 @@
 
 namespace App\Dto;
 
-class CategoryDto
+use JsonSerializable;
+
+class CategoryDto implements JsonSerializable
 {
     #region Fields declaration
     private int $id;
@@ -22,6 +24,12 @@ class CategoryDto
         $this->name = $name;
         $this->parent = $parent;
     }
+    //
+    public function jsonSerialize(): array
+    {
+        return get_object_vars($this);
+    }
+
     //
 
 

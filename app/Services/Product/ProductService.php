@@ -5,17 +5,19 @@ namespace App\Services\Product;
 use App\Dto\CategoryDto;
 use App\Dto\ProductDto;
 use App\Repository\Product\ProductRepositoryInterface;
+use App\Services\Category\CategoryServiceInterface;
 use Exception;
 
 class ProductService implements ProductServiceInterface
 {
     #region Dependencies injection
 
-    private $productRepository;
+    private $productRepository, $categoryService;
 
-    public function __construct(ProductRepositoryInterface $productRepository)
+    public function __construct(ProductRepositoryInterface $productRepository, CategoryServiceInterface $categoryService)
     {
         $this->productRepository = $productRepository;
+        $this->categoryService = $categoryService;
     }
 
     #endregion
@@ -31,10 +33,8 @@ class ProductService implements ProductServiceInterface
         //
         if (!in_array($sortKey, $sortingKeys))
             throw new Exception("Error Processing Request", 1);
-        else {
-            if (!in_array($sortValue, $sortingMethods))
-                throw new Exception("Error Processing Request", 1);
-        }
+        if (!in_array($sortValue, $sortingMethods))
+            throw new Exception("Error Processing Request", 1);
         //
         //
         $productsArray = array();
@@ -49,6 +49,7 @@ class ProductService implements ProductServiceInterface
             //
             // Map raw data to ProductDto
             $tempArray = $productsCollection->values()->all();
+            error_log(json_encode($tempArray));
             for ($i = 0; $i < sizeof($tempArray); $i++) {
                 $obj = $tempArray[$i];
                 //
@@ -58,22 +59,22 @@ class ProductService implements ProductServiceInterface
                 $objImage = $obj->image;
                 $objCategories = array();
                 foreach ($obj->categories as $category) {
-                    array_push($objCategories, new CategoryDto($category->name, null, $category->id));
+                    $parentId = $category->parent_category == null ? -1 : $category->parent_category;
+                    $categoryDto = new CategoryDto($category->name, $this->categoryService->get($parentId), $category->id);
+                    array_push($objCategories, $categoryDto);
                 }
                 //
                 $product = new ProductDto($objName, $objDescription, $objPrice, $objImage, $objCategories);
-                error_log($product->getName());
                 array_push($productsArray, $product);
             }
         } //else return an empty array
-        error_log(json_encode($productsArray));
         return $productsArray;
     }
 
     /**
      * 
      */
-    public function get(string $id): ProductDto
+    public function get(int $id): ProductDto
     {
         throw new Exception("Error Processing Request", 1);
     }

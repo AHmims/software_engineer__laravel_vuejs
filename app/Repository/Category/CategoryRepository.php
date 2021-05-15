@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    //
+    /**
+     * 
+     */
     public function store(Request $request)
     {
         try {
@@ -23,18 +25,18 @@ class CategoryRepository implements CategoryRepositoryInterface
             abort(500);
         }
     }
-    //
-    public function get($id)
+
+    /**
+     * TODO Exception manager
+     */
+    public function get(int $id): Category
     {
-        try {
-            if ($id == null || $id < 0)
-                throw new Exception("Error Processing Value");
-            return Category::find($id);
-        } catch (Exception $e) {
-            abort(500);
-        }
+        return Category::find($id);
     }
-    //
+
+    /**
+     * 
+     */
     public function getAll($byPriceAsc = true): Collection
     {
         return Category::with(["products" => function ($q) use ($byPriceAsc) {

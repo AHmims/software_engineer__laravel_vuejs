@@ -12,12 +12,16 @@ use Illuminate\Http\Request;
 
 class ProductRepository implements ProductRepositoryInterface
 {
+    #region Dependencies injection
+
     private $categoryRepository;
 
     public function __construct(CategoryRepositoryInterface $categoryRepository)
     {
         $this->categoryRepository = $categoryRepository;
     }
+
+    #endregion
 
     /**
      * 
@@ -26,6 +30,9 @@ class ProductRepository implements ProductRepositoryInterface
     {
         return Product::with("categories")->get();
     }
+
+
+
     //Get all products by category
     public function getAllByCategory($byPriceAsc, $category = -1)
     {

@@ -16,10 +16,10 @@ interface ProductServiceInterface
 
     /**
      * * Get a product by its id
-     * @param string $id | id of product to get
+     * @param int $id | id of product to get
      * @return ProductDto | Found product
      */
-    public function get(string $id): ProductDto;
+    public function get(int $id): ProductDto;
 
     /**
      * * Insert a product
