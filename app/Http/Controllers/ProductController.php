@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Dto\ProductDto;
+use App\Http\Filters\ProductSort;
+use App\Models\Product;
 use App\Services\Product\ProductServiceInterface;
 use Illuminate\Http\Request;
 use Symfony\Component\VarDumper\VarDumper;
@@ -28,9 +30,10 @@ class ProductController extends Controller
      * -> @param string $request->query('sortValue') | Sorting method
      * @return array<ProductDto>
      */
-    public function getAll(Request $request): array
+    public function getAll(ProductSort $filter)
     {
-        return $this->productService->getAll($request->query('sortKey'), $request->query('sortValue'));
+        // return $this->productService->getAll($request->query('sortKey'), $request->query('sortValue'));
+        return Product::filter($filter)->orderBy('created_at', 'desc')->paginate(2);
     }
 
     /**
