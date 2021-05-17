@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\ObjectMapper;
 use App\Dto\ProductDto;
 use App\Http\Filters\ProductSort;
 use App\Models\Product;
 use App\Services\Product\ProductServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Symfony\Component\VarDumper\VarDumper;
 
 class ProductController extends Controller
@@ -25,15 +27,12 @@ class ProductController extends Controller
     /**
      * * Returns a list of all Products
      * 
-     * @param Request $request
-     * -> @param string $request->query('sortKey') | Sorting pointer
-     * -> @param string $request->query('sortValue') | Sorting method
-     * @return array<ProductDto>
+     * @param App\Http\Filters\ProductSort $filter
+     * @return Illuminate\Support\Collection<ProductDto>
      */
-    public function getAll(ProductSort $filter)
+    public function getAll(ProductSort $filter): Collection
     {
-        // return $this->productService->getAll($request->query('sortKey'), $request->query('sortValue'));
-        return Product::filter($filter)->orderBy('created_at', 'desc')->paginate(2);
+        return $this->productService->getAll($filter);
     }
 
     /**

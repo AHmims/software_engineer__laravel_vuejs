@@ -16,11 +16,12 @@ use Illuminate\Support\Facades\Route;
 | routes are loaded by the RouteServiceProvider within a group which
 | is assigned the "api" middleware group. Enjoy building your API!
 |
+*/
 
 /**
- * Api endpoints for "product" route
+ * Api endpoints for "product" route 
  * 
- * TODO * [GET '/'] => returns a list of products 
+ * * [GET '/'] => returns a list of products 
  * TODO * [GET '/{productId}'] => returns a product that matches the provided id
  * ? TODO * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
  * TODO * [POST '/'] => insert a new product

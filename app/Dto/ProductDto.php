@@ -2,6 +2,7 @@
 
 namespace App\Dto;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Validator;
 use JsonSerializable;
 use Symfony\Component\VarDumper\VarDumper;
@@ -14,7 +15,7 @@ class ProductDto implements JsonSerializable
     private string $description;
     private $price;
     private string $image;
-    private $categories = array();
+    private Collection $categories;
     #endregion
     //
     /**
@@ -26,7 +27,7 @@ class ProductDto implements JsonSerializable
      * @param array $categories
      * @param int $id;
      */
-    public function __construct(string $name, string $description, $price, string $image, $categories, int $id = -1)
+    public function __construct(string $name, string $description, $price, string $image, Collection $categories, int $id = -1)
     {
         $this->id = $id;
         $this->name = $name;
@@ -172,8 +173,10 @@ class ProductDto implements JsonSerializable
 
     /**
      * Get the value of categories
+     * 
+     * @return Illuminate\Support\Collection
      */
-    public function getCategories()
+    public function getCategories(): Collection
     {
         return $this->categories;
     }
@@ -181,9 +184,9 @@ class ProductDto implements JsonSerializable
     /**
      * Set the value of categories
      * 
-     * @param array() $categories
+     * @param Collection $categories
      */
-    public function setCategories($categories): void
+    public function setCategories(Collection $categories): void
     {
         $this->categories = $categories;
     }

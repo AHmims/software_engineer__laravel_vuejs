@@ -3,6 +3,7 @@
 namespace App\Repository\Product;
 
 use App\Dto\ProductDto;
+use App\Http\Filters\ProductSort;
 use App\Models\Category;
 use App\Models\Product;
 use App\Repository\Category\CategoryRepositoryInterface;
@@ -24,9 +25,9 @@ class ProductRepository implements ProductRepositoryInterface
     /**
      * 
      */
-    public function getAll(): Collection
+    public function getAll(ProductSort $filter): Collection
     {
-        return Product::with("categories")->get();
+        return Product::with("categories")->filter($filter)->orderBy('created_at', 'desc')->get();
     }
 
     /**

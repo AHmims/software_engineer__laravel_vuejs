@@ -9,7 +9,7 @@ class CategoryDto implements JsonSerializable
     #region Fields declaration
     private int $id;
     private string $name;
-    private ?CategoryDto $parent;
+    private int $parentId;
     #endregion
     //
     /**
@@ -18,11 +18,11 @@ class CategoryDto implements JsonSerializable
      * @param CategoryDto $parent
      * @param int $id
      */
-    public function __construct(string $name, ?CategoryDto $parent, int $id = -1)
+    public function __construct(string $name, int $parentId, int $id = -1)
     {
         $this->id = $id;
         $this->name = $name;
-        $this->parent = $parent;
+        $this->parentId = $parentId;
     }
     //
     public function jsonSerialize(): array

@@ -3,17 +3,18 @@
 namespace App\Services\Product;
 
 use App\Dto\ProductDto;
+use App\Http\Filters\ProductSort;
+use Illuminate\Support\Collection;
 
 interface ProductServiceInterface
 {
     /**
      * * Get a list of products
      * 
-     * @param string $sortKey | Sorting pointer, can be 'price' || 'name'
-     * @param string $sortValue | Sorting direction, can be 'asc' || 'desc'
-     * @return array<ProductDto> | List of all products
+     * @param App\Http\Filters\ProductSort $filter
+     * @return Collection<ProductDto> | List of all products
      */
-    public function getAll(string $sortKey, string $sortValue): array;
+    public function getAll(ProductSort $filter): Collection;
 
     /**
      * * Get a list of products filtered by category
