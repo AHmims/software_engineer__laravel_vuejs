@@ -32,10 +32,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 
 Route::prefix('/product')->group(function () {
-    Route::get('/', 'ProductController@getAll');
-    Route::get('/{productId}', 'ProductController@get');
-    Route::get('category/{categoryId}', 'ProductController@getAllByCategory');
-    Route::post('/', 'ProductController@insert');
+    Route::get('/', [ProductController::class, 'getAll']);
+    Route::get('/{productId}', [ProductController::class, 'get']);
+    Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory']);
+    Route::post('/', [ProductController::class, 'insert']);
 });
 
 /**
@@ -47,7 +47,7 @@ Route::prefix('/product')->group(function () {
  */
 
 Route::prefix('/category')->group(function () {
-    Route::get('/', 'CategoryController@getAll');
+    Route::get('/', [CategoryController::class, 'getAll']);
 });
 
 /**
@@ -55,8 +55,5 @@ Route::prefix('/category')->group(function () {
  * 
  */
 Route::prefix('test')->group(function () {
-    Route::get('/{product}', 'TestController@get');
-    /*Route::get('/{id}', function (Product $product) {
-        return $product;
-    });*/
+    Route::get('/{product}', [TestController::class, 'get'])->name('test.product');
 });
