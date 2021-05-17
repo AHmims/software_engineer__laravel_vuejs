@@ -4,6 +4,7 @@ namespace App\Services\Product;
 
 use App\Dto\ProductDto;
 use App\Http\Filters\ProductSort;
+use App\Models\Product;
 use Illuminate\Support\Collection;
 
 interface ProductServiceInterface
@@ -29,10 +30,10 @@ interface ProductServiceInterface
     /**
      * * Get a product by its id
      * 
-     * @param int $id | id of product to get
-     * @return ProductDto | Found product
+     * @param App\Models\Product $product
+     * @return App\Dto\ProductDto
      */
-    public function get(int $productId): ?ProductDto;
+    public function get(Product $product): ProductDto;
 
     /**
      * * Insert a product

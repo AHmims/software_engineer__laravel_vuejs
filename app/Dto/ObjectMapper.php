@@ -19,7 +19,7 @@ class ObjectMapper
     {
         if (!$data instanceof Collection) {
             if (!is_array($data)) {
-                $data = collect($data);
+                $data = collect([$data]);
             }
         }
 
@@ -42,7 +42,7 @@ class ObjectMapper
     {
         if (!$data instanceof Collection) {
             if (!is_array($data)) {
-                $data = collect($data);
+                $data = collect([$data]);
             }
         }
 

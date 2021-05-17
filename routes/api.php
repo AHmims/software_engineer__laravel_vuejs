@@ -22,14 +22,18 @@ use Illuminate\Support\Facades\Route;
  * Api endpoints for "product" route 
  * 
  * * [GET '/'] => returns a list of products 
- * TODO * [GET '/{productId}'] => returns a product that matches the provided id
+ * * [GET '/{product}'] => returns a product that matches the provided id
  * ? TODO * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
  * TODO * [POST '/'] => insert a new product
  */
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'getAll']);
-    Route::get('/{productId}', [ProductController::class, 'get']);
+    Route::get('/{product}', [ProductController::class, 'get'])->missing(function (Request $request) {
+        return response([
+            'message' => 'hmmmm'
+        ], 404);
+    });
     // Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory']);
     Route::post('/', [ProductController::class, 'insert']);
 });

@@ -66,29 +66,12 @@ class ProductService implements ProductServiceInterface
     }
 
     /**
-     * TODO hadle non existing products
+     * 
      */
-    public function get(int $productId): ?ProductDto
+    public function get(Product $product): ProductDto
     {
-        if ($productId == -1)
-            return null;
-        //
-        $product = $this->productRepository->get($productId);
-        if ($product == null)
-            return null;
-        //
-        $prodName = $product->name;
-        $prodDescription = $product->description;
-        $prodPrice = $product->price;
-        $prodImage = $product->image;
-        $prodCategories = array();
-        foreach ($product->categories as $category) {
-            $parentId = $category->parent_category == null ? -1 : $category->parent_category;
-            $categoryDto = new CategoryDto($category->name, $this->categoryService->get($parentId), $category->id);
-            array_push($prodCategories, $categoryDto);
-        }
-        //
-        return new ProductDto($prodName, $prodDescription, $prodPrice, $prodImage, $prodCategories);
+        $product->load('categories');
+        return (ObjectMapper::mapProductToProductDto($product))->first();
     }
 
     /**

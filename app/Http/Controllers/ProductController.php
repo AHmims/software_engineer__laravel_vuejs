@@ -52,12 +52,12 @@ class ProductController extends Controller
     /**
      * * Returns the request product by id
      * 
-     * @param int $productId
+     * @param App\Models\Product $product
      * @return ProductDto
      */
-    public function get(Request $request, $productId): ?ProductDto
+    public function get(Product $product): ProductDto
     {
-        return $this->productService->get(intval($productId));
+        return $this->productService->get($product);
     }
 
     /**
