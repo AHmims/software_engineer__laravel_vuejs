@@ -25,23 +25,23 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 /**
  * Api endpoints for "product" route
  * 
- * * [GET '/'] => returns a list of products 
- * * [GET '/{productId}'] => returns a product that matches the provided id
- * * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
- * * [POST '/'] => insert a new product
+ * TODO * [GET '/'] => returns a list of products 
+ * TODO * [GET '/{productId}'] => returns a product that matches the provided id
+ * TODO * [GET 'category/{categoryId}'] => returns a list of products that belongs to the provided category
+ * TODO * [POST '/'] => insert a new product
  */
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'getAll']);
     Route::get('/{productId}', [ProductController::class, 'get']);
-    Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory']);
+    // Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory']);
     Route::post('/', [ProductController::class, 'insert']);
 });
 
 /**
  * Api endpoints for "category" route
  * 
- * * [GET '/'] => returns a list of categories
+ * TODO * [GET '/'] => returns a list of categories
  * TODO * [GET '/{categoryId}'] => returns a category that matches the provided id
  * TODO * [POST '/'] => insert a new category
  */
@@ -54,6 +54,12 @@ Route::prefix('/category')->group(function () {
  * Api endpoint for testing purposes
  * 
  */
+
 Route::prefix('test')->group(function () {
-    Route::get('/{product}', [TestController::class, 'get'])->name('test.product');
+    Route::get('/{product}', [TestController::class, 'get']);
+    Route::get('/category/{category}', [TestController::class, 'get2'])->missing(function (Request $request) {
+        return response([
+            'message' => 'hmmmm'
+        ], 404);
+    });
 });
