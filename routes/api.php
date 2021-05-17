@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\TestController;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -30,10 +32,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
  */
 
 Route::prefix('/product')->group(function () {
-    Route::get('/', [ProductController::class, 'getAll'])->middleware('product.listing');
-    Route::get('/{productId}', [ProductController::class, 'get'])->middleware('product.lookup');
-    Route::get('category/{categoryId}', [ProductController::class, 'getAllByCategory'])->middleware(['product.listing', 'product.filtering']);
-    Route::post('/', [ProductController::class, 'insert'])->middleware('product.insertion');
+    Route::get('/', 'ProductController@getAll');
+    Route::get('/{productId}', 'ProductController@get');
+    Route::get('category/{categoryId}', 'ProductController@getAllByCategory');
+    Route::post('/', 'ProductController@insert');
 });
 
 /**
@@ -45,5 +47,16 @@ Route::prefix('/product')->group(function () {
  */
 
 Route::prefix('/category')->group(function () {
-    Route::get('/', [CategoryController::class, 'getAll']);
+    Route::get('/', 'CategoryController@getAll');
+});
+
+/**
+ * Api endpoint for testing purposes
+ * 
+ */
+Route::prefix('test')->group(function () {
+    Route::get('/{product}', 'TestController@get');
+    /*Route::get('/{id}', function (Product $product) {
+        return $product;
+    });*/
 });
