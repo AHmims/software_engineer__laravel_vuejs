@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Repository\Category\CategoryRepositoryInterface;
 use App\Services\Category\CategoryServiceInterface;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class CategoryController extends Controller
 {
@@ -22,11 +24,20 @@ class CategoryController extends Controller
     /**
      * * Returns a list of all Categories
      * 
-     * @param Request $request
-     * @return array<CategoryDto>
+     * @return Illuminate\Support\Collection<CategoryDto>
      */
-    public function getAll(): array
+    public function getAll(): Collection
     {
         return $this->categoryService->getAll();
+    }
+
+    /**
+     * * Returns a list of Products by category
+     * 
+     * @return Illuminate\Support\Collection<ProductDto>
+     */
+    public function getProductsByCategory(Category $category): Collection
+    {
+        return $this->categoryService->getProducts($category);
     }
 }

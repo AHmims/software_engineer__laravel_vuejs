@@ -3,22 +3,23 @@
 namespace App\Services\Category;
 
 use App\Dto\CategoryDto;
+use App\Models\Category;
+use Illuminate\Support\Collection;
 
 interface CategoryServiceInterface
 {
     /**
-     * * Get a category by its id
-     * 
-     * @param int $categoryId id of category to get
-     * @return CategoryDto
-     * @return null
-     */
-    public function get(int $categoryId): ?CategoryDto;
-
-    /**
      * * Get a list of categories
      * 
-     * @return array<CategoryDto> | List of all categories
+     * @return Illuminate\Support\Collection<CategoryDto>
      */
-    public function getAll(): array;
+    public function getAll(): Collection;
+
+    /**
+     * * Get list of products by category
+     * 
+     * @param Illuminate\Support\Collection $category
+     * @return Illuminate\Support\Collection
+     */
+    public function getProducts(Category $category): Collection;
 }

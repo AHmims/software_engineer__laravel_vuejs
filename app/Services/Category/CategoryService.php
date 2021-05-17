@@ -3,8 +3,10 @@
 namespace App\Services\Category;
 
 use App\Dto\CategoryDto;
+use App\Dto\ObjectMapper;
 use App\Models\Category;
 use App\Repository\Category\CategoryRepositoryInterface;
+use Illuminate\Support\Collection;
 
 class CategoryService implements CategoryServiceInterface
 {
@@ -22,44 +24,17 @@ class CategoryService implements CategoryServiceInterface
     /**
      * 
      */
-    public function get(int $categoryId): ?CategoryDto
+    public function getAll(): Collection
     {
-        if ($categoryId == -1)
-            return null;
-        //
-        $category = $this->categoryRepository->get($categoryId);
-        if ($category == null)
-            return null;
-        //
-        $catId = $category->id;
-        $catName = $category->name;
-        $parentId = $category->parent_category == null ? -1 : $category->parent_category;
-        $catParent = $this->get($parentId);
-        //
-        return new CategoryDto($catName, $catParent, $catId);
+        return ObjectMapper::mapCategoryToCategoryDto($this->categoryRepository->getAll());
     }
 
     /**
      * 
      */
-    public function getAll(): array
+    public function getProducts(Category $category): Collection
     {
-        $categoriesArray = array();
-        //
-        $categoriesCollection = $this->categoryRepository->getAll();
-        if ($categoriesCollection->isNotEmpty()) {
-            $tempArray = $categoriesCollection->values()->all();
-            for ($i = 0; $i < sizeof($tempArray); $i++) {
-                $obj = $tempArray[$i];
-                //
-                $objId = $obj->id;
-                $objName = $obj->name;
-                $objParent = $this->get($obj->parent_category != null ? $obj->parent_category : -1);
-                //
-                $category = new CategoryDto($objName, $objParent, $objId);
-                array_push($categoriesArray, $category);
-            }
-        } //else return an empty array
-        return $categoriesArray;
+        $category->load('products');
+        return ObjectMapper::mapProductToProductDto($category->products);
     }
 }
