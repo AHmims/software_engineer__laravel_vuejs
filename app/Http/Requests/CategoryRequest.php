@@ -6,7 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class ProductRequest extends FormRequest
+class CategoryRequest extends FormRequest
 {
     /**
      * Indicates if the validator should stop on the first rule failure.
@@ -34,11 +34,7 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'description' => 'required|string',
-            'price' => 'required|numeric|gt:0',
-            'image' => 'required|url',
-            'categories' => 'required|array',
-            'categories.*' => 'integer'
+            'parent_category' => 'nullable|integer'
         ];
     }
 

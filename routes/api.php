@@ -41,7 +41,7 @@ Route::prefix('/product')->group(function () {
  * 
  * * [GET '/'] => returns a list of categories
  * ? * [GET '/{categoryId}'] => returns a list of products by category id
- * TODO * [POST '/'] => insert a new category
+ * * [POST '/'] => insert a new category
  */
 
 Route::prefix('/category')->group(function () {
@@ -51,4 +51,5 @@ Route::prefix('/category')->group(function () {
             'message' => 'hmmmm'
         ], 404);
     });
+    Route::post('/', [CategoryController::class, 'insert']);
 });

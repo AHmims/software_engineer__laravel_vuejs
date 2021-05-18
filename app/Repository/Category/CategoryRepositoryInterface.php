@@ -23,4 +23,12 @@ interface CategoryRepositoryInterface
      * @return Collection
      */
     public function getAll(): Collection;
+
+    /**
+     * * Insert new Category
+     * 
+     * @param array $categoryData
+     * @return App\Models\Category
+     */
+    public function add(array $categoryData): Category;
 }

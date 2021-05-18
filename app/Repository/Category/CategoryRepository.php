@@ -24,4 +24,16 @@ class CategoryRepository implements CategoryRepositoryInterface
     {
         return Category::get();
     }
+
+    /**
+     * 
+     */
+    public function add(array $categoryData): Category
+    {
+        if ($categoryData['parent_category'] != null) {
+            Category::findOrFail($categoryData['parent_category']);
+        }
+
+        return Category::create($categoryData);
+    }
 }

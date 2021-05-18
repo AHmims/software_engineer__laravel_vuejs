@@ -22,4 +22,12 @@ interface CategoryServiceInterface
      * @return Illuminate\Support\Collection
      */
     public function getProducts(Category $category): Collection;
+
+    /**
+     * * Insert a category
+     * 
+     * @param array $categoryData
+     * @return CategoryDto | Inserted category
+     */
+    public function add(array $categoryData): CategoryDto;
 }

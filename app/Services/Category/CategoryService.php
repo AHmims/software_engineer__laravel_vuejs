@@ -37,4 +37,13 @@ class CategoryService implements CategoryServiceInterface
         $category->load('products');
         return ObjectMapper::mapProductToProductDto($category->products);
     }
+
+    /**
+     * 
+     */
+    public function add(array $categoryData): CategoryDto
+    {
+        $category = $this->categoryRepository->add($categoryData);
+        return (ObjectMapper::mapCategoryToCategoryDto($category))->first();
+    }
 }

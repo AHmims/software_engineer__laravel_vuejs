@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Dto\CategoryDto;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Repository\Category\CategoryRepositoryInterface;
 use App\Services\Category\CategoryServiceInterface;
@@ -39,5 +41,16 @@ class CategoryController extends Controller
     public function getProductsByCategory(Category $category): Collection
     {
         return $this->categoryService->getProducts($category);
+    }
+
+    /**
+     * * Insert new Category
+     * 
+     * 
+     */
+    public function insert(CategoryRequest $request): CategoryDto
+    {
+        $request->validated();
+        return $this->categoryService->add($request->all());
     }
 }
