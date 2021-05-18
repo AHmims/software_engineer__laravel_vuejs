@@ -15,7 +15,7 @@ interface ProductRepositoryInterface
      * * Get all products from database sorted by provided filter
      * 
      * @param App\Http\Filters\ProductSort $filter
-     * @return Collection;
+     * @return Illuminate\Database\Eloquent\Collection;
      */
     public function getAll(ProductSort $filter): Collection;
 
@@ -23,16 +23,15 @@ interface ProductRepositoryInterface
      * * Get Product by id
      * 
      * @param int $productId
-     * @return Product
+     * @return App\Models\Product
      */
     public function get(int $productId): ?Product;
 
     /**
      * * Insert new Product
      * 
-     * @param Product $product
-     * @param array<Category> $categories
-     * @return void
+     * @param array $productData
+     * @return App\Models\Product
      */
-    public function add(Product $product, array $categories): Product;
+    public function add(array $productData): Product;
 }

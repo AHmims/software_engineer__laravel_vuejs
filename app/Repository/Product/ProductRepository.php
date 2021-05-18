@@ -14,14 +14,6 @@ use Illuminate\Http\Request;
 
 class ProductRepository implements ProductRepositoryInterface
 {
-    #region Dependencies injection
-
-    public function __construct()
-    {
-    }
-
-    #endregion
-
     /**
      * 
      */
@@ -39,13 +31,19 @@ class ProductRepository implements ProductRepositoryInterface
     }
 
     /**
-     * TODO Exception handler
+     * 
      */
-    public function add(Product $product, array $categories): Product
+    public function add(array $productData): Product
     {
-        $product->save();
+        $categories = new Collection();
+
+        foreach ($productData['categories'] as $categoryId) {
+            $categories->add(Category::findOrFail($categoryId));
+        }
+
+        $product = Product::create($productData);
         $product->categories()->saveMany($categories);
-        //
-        return $product->refresh();
+
+        return $product;
     }
 }

@@ -22,8 +22,8 @@ use Illuminate\Support\Facades\Route;
  * Api endpoints for "product" route 
  * 
  * * [GET '/'] => returns a list of products 
- * * [GET '/{product}'] => returns a product that matches the provided id
- * TODO * [POST '/'] => insert a new product
+ * ? * [GET '/{product}'] => returns a product that matches the provided id
+ * * [POST '/'] => insert a new product
  */
 
 Route::prefix('/product')->group(function () {
@@ -40,7 +40,7 @@ Route::prefix('/product')->group(function () {
  * Api endpoints for "category" route
  * 
  * * [GET '/'] => returns a list of categories
- * * [GET '/{categoryId}'] => returns a list of products by category id
+ * ? * [GET '/{categoryId}'] => returns a list of products by category id
  * TODO * [POST '/'] => insert a new category
  */
 

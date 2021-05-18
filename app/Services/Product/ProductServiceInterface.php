@@ -18,16 +18,6 @@ interface ProductServiceInterface
     public function getAll(ProductSort $filter): Collection;
 
     /**
-     * * Get a list of products filtered by category
-     * 
-     * @param string $sortKey | Sorting pointer, can be 'price' || 'name'
-     * @param string $sortValue | Sorting direction, can be 'asc' || 'desc'
-     * @param int $categoryId | Category id
-     * @return array<ProductDto> | List of all products
-     */
-    public function getAllByCategory(string $sortKey, string $sortValue, int $categoryId): array;
-
-    /**
      * * Get a product by its id
      * 
      * @param App\Models\Product $product
@@ -38,12 +28,8 @@ interface ProductServiceInterface
     /**
      * * Insert a product
      * 
-     * @param string $nam | Product name
-     * @param string $description | Product description
-     * @param double $price | Product price
-     * @param string $image | Product image
-     * @param array<int> $categories | Product categories
+     * @param array $productData
      * @return ProductDto | Inserted product
      */
-    public function add(string $name, string $description, $price, string $image, array $categories): ProductDto;
+    public function add(array $productData): ProductDto;
 }
