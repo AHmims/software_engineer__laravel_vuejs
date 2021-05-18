@@ -25,11 +25,11 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::prefix('/product')->group(function () {
-    Route::get('/', [ProductController::class, 'getAll']);
+    Route::get('/', [ProductController::class, 'getAll'])->name('product.all');
     Route::get('/{product}', [ProductController::class, 'get'])->missing(function () {
         return PrepareExceptionResponse::getNoModuleError();
-    });
-    Route::post('/', [ProductController::class, 'insert']);
+    })->name('product.id');
+    Route::post('/', [ProductController::class, 'insert'])->name('product.add');
 });
 
 /**
@@ -41,9 +41,9 @@ Route::prefix('/product')->group(function () {
  */
 
 Route::prefix('/category')->group(function () {
-    Route::get('/', [CategoryController::class, 'getAll']);
+    Route::get('/', [CategoryController::class, 'getAll'])->name('category.all');
     Route::get('/{category}', [CategoryController::class, 'getProductsByCategory'])->missing(function () {
         return PrepareExceptionResponse::getNoModuleError();
-    });
-    Route::post('/', [CategoryController::class, 'insert']);
+    })->name('category.product.all');
+    Route::post('/', [CategoryController::class, 'insert'])->name('category.add');
 });
