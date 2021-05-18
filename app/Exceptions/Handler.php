@@ -46,7 +46,7 @@ class Handler extends ExceptionHandler
     public function render($request, Throwable $e)
     {
         if (get_class($e) == "Illuminate\Database\Eloquent\ModelNotFoundException") {
-            return PrepareExceptionResponse::getError($e);
+            return PrepareExceptionResponse::getThrowableError($e);
         }
         return parent::render($request, $e);
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Exceptions\PrepareExceptionResponse;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\TestController;
@@ -22,16 +23,14 @@ use Illuminate\Support\Facades\Route;
  * Api endpoints for "product" route 
  * 
  * * [GET '/'] => returns a list of products 
- * ? * [GET '/{product}'] => returns a product that matches the provided id
+ * * [GET '/{product}'] => returns a product that matches the provided id
  * * [POST '/'] => insert a new product
  */
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'getAll']);
     Route::get('/{product}', [ProductController::class, 'get'])->missing(function (Request $request) {
-        return response([
-            'message' => 'hmmmm'
-        ], 404);
+        return PrepareExceptionResponse::getNoModuleError();
     });
     Route::post('/', [ProductController::class, 'insert']);
 });
@@ -40,16 +39,14 @@ Route::prefix('/product')->group(function () {
  * Api endpoints for "category" route
  * 
  * * [GET '/'] => returns a list of categories
- * ? * [GET '/{categoryId}'] => returns a list of products by category id
+ * * [GET '/{categoryId}'] => returns a list of products by category id
  * * [POST '/'] => insert a new category
  */
 
 Route::prefix('/category')->group(function () {
     Route::get('/', [CategoryController::class, 'getAll']);
     Route::get('/{category}', [CategoryController::class, 'getProductsByCategory'])->missing(function (Request $request) {
-        return response([
-            'message' => 'hmmmm'
-        ], 404);
+        return PrepareExceptionResponse::getNoModuleError();
     });
     Route::post('/', [CategoryController::class, 'insert']);
 });
