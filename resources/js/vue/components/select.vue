@@ -1,10 +1,17 @@
 <template>
   <select
-    class="px-6 py-3 rounded-[16px] space-x-1.5 border-[2px] border-gray-200 text-md"
+    class="px-6 py-3 rounded-[16px] space-x-1.5 border-[2px] border-gray-200 text-md capitalize"
     @change="$emit('change', $event)"
   >
-    <option value="null" disabled selected>Choose a value</option>
-    <option v-for="value in values" :key="value.id" :value="value.id">
+    <option value="null" disabled selected v-if="data.selected == null">
+      Choose a value
+    </option>
+    <option
+      v-for="value in data.list"
+      :key="value.id"
+      :value="value.id"
+      :selected="value.id == data.selected"
+    >
       {{ value.name }}
     </option>
   </select>
@@ -13,8 +20,8 @@
 <script>
 export default {
   props: {
-    values: {
-      type: Array,
+    data: {
+      type: Object,
       required: false,
     },
   },

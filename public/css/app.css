@@ -872,6 +872,9 @@ video {
 .font-semibold {
 	font-weight: 600;
 }
+.capitalize {
+	text-transform: capitalize;
+}
 .text-gray-800 {
 	--tw-text-opacity: 1;
 	color: rgba(31, 41, 55, var(--tw-text-opacity));

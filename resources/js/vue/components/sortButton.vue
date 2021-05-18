@@ -26,7 +26,7 @@
       ></path>
     </svg>
     <!--  -->
-    <span class="font-medium text-gray-700 text-md">
+    <span class="font-medium text-gray-700 text-md" v-if="text != ''">
       {{ icon == "desc" ? "Decreasing" : "Increasing" }} {{ text }}
     </span>
   </button>

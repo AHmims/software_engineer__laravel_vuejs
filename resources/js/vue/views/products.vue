@@ -4,18 +4,22 @@
       class="w-full flex flex-col xl:flex-row xl:items-center justify-between"
     >
       <h1 class="text-3xl font-Kollektif">Products management</h1>
-      <div class="flex items-center space-x-4 mt-4 xl:mt-0 font-SourceSansPro">
-        <SortButton text="Price" icon="asc" @click="getAllProducts" />
-        <SortButton text="Price" icon="desc" @click="getAllProducts" />
-        <div class="w-[3px] h-2/3 bg-gray-200 rounded-full"></div>
+      <div class="flex items-center space-x-6 mt-4 xl:mt-0 font-SourceSansPro">
+        <div class="flex items-center space-x-2">
+          <div class="flex space-x-4 items-center">
+            <span>Sort by:</span>
+            <Select :data="sorts" @change="setSortingKey" />
+          </div>
+          <SortButton text="" icon="asc" @click="setSortingOrder" />
+          <SortButton text="" icon="desc" @click="setSortingOrder" />
+        </div>
         <div class="flex space-x-4 items-center">
-          <span>Filter by categorie:</span>
-          <Select :values="categories" @change="filter" />
+          <span>Category:</span>
+          <Select :data="categories" @change="setFilterValue" />
         </div>
       </div>
     </div>
     <!--  -->
-    
   </div>
 </template>
 
@@ -30,16 +34,42 @@ export default {
   },
   data: () => {
     return {
-      categories: [],
+      sorts: {
+        selected: "created_at",
+        list: [
+          {
+            id: "name",
+            name: "name",
+          },
+          {
+            id: "price",
+            name: "price",
+          },
+          {
+            id: "created_at",
+            name: "date",
+          },
+        ],
+      },
+      categories: {
+        selected: null,
+        list: [],
+      },
       products: [],
+      sortingKey: "created_at",
+      sortingValue: "desc",
+      selectedCategory: -1,
     };
   },
   methods: {
-    getAllProducts(data = null) {
+    setSortingOrder(data) {
       console.log(data);
     },
-    filter(data = null) {
-      console.log(data);
+    setSortingKey(data) {
+      console.log(data.target.options[data.target.selectedIndex].value);
+    },
+    setFilterValue(data) {
+      console.log(data.target.options[data.target.selectedIndex].value);
     },
   },
 };

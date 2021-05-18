@@ -1956,10 +1956,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
-    values: {
-      type: Array,
+    data: {
+      type: Object,
       required: false
     }
   }
@@ -2101,6 +2108,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2110,18 +2121,38 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      categories: [],
-      products: []
+      sorts: {
+        selected: "created_at",
+        list: [{
+          id: "name",
+          name: "name"
+        }, {
+          id: "price",
+          name: "price"
+        }, {
+          id: "created_at",
+          name: "date"
+        }]
+      },
+      categories: {
+        selected: null,
+        list: []
+      },
+      products: [],
+      sortingKey: "created_at",
+      sortingValue: "desc",
+      selectedCategory: -1
     };
   },
   methods: {
-    getAllProducts: function getAllProducts() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+    setSortingOrder: function setSortingOrder(data) {
       console.log(data);
     },
-    filter: function filter() {
-      var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
-      console.log(data);
+    setSortingKey: function setSortingKey(data) {
+      console.log(data.target.options[data.target.selectedIndex].value);
+    },
+    setFilterValue: function setFilterValue(data) {
+      console.log(data.target.options[data.target.selectedIndex].value);
     }
   }
 });
@@ -21705,7 +21736,7 @@ var render = function() {
     "select",
     {
       staticClass:
-        "px-6 py-3 rounded-[16px] space-x-1.5 border-[2px] border-gray-200 text-md",
+        "px-6 py-3 rounded-[16px] space-x-1.5 border-[2px] border-gray-200 text-md capitalize",
       on: {
         change: function($event) {
           return _vm.$emit("change", $event)
@@ -21713,14 +21744,26 @@ var render = function() {
       }
     },
     [
-      _c("option", { attrs: { value: "null", disabled: "", selected: "" } }, [
-        _vm._v("Choose a value")
-      ]),
+      _vm.data.selected == null
+        ? _c(
+            "option",
+            { attrs: { value: "null", disabled: "", selected: "" } },
+            [_vm._v("\n    Choose a value\n  ")]
+          )
+        : _vm._e(),
       _vm._v(" "),
-      _vm._l(_vm.values, function(value) {
-        return _c("option", { key: value.id, domProps: { value: value.id } }, [
-          _vm._v("\n    " + _vm._s(value.name) + "\n  ")
-        ])
+      _vm._l(_vm.data.list, function(value) {
+        return _c(
+          "option",
+          {
+            key: value.id,
+            domProps: {
+              value: value.id,
+              selected: value.id == _vm.data.selected
+            }
+          },
+          [_vm._v("\n    " + _vm._s(value.name) + "\n  ")]
+        )
       })
     ],
     2
@@ -21801,15 +21844,17 @@ var render = function() {
             ]
           ),
       _vm._v(" "),
-      _c("span", { staticClass: "font-medium text-gray-700 text-md" }, [
-        _vm._v(
-          "\n    " +
-            _vm._s(_vm.icon == "desc" ? "Decreasing" : "Increasing") +
-            " " +
-            _vm._s(_vm.text) +
-            "\n  "
-        )
-      ])
+      _vm.text != ""
+        ? _c("span", { staticClass: "font-medium text-gray-700 text-md" }, [
+            _vm._v(
+              "\n    " +
+                _vm._s(_vm.icon == "desc" ? "Decreasing" : "Increasing") +
+                " " +
+                _vm._s(_vm.text) +
+                "\n  "
+            )
+          ])
+        : _vm._e()
     ]
   )
 }
@@ -21917,38 +21962,54 @@ var render = function() {
           "div",
           {
             staticClass:
-              "flex items-center space-x-4 mt-4 xl:mt-0 font-SourceSansPro"
+              "flex items-center space-x-6 mt-4 xl:mt-0 font-SourceSansPro"
           },
           [
-            _c("SortButton", {
-              attrs: { text: "Price", icon: "asc" },
-              on: { click: _vm.getAllProducts }
-            }),
-            _vm._v(" "),
-            _c("SortButton", {
-              attrs: { text: "Price", icon: "desc" },
-              on: { click: _vm.getAllProducts }
-            }),
-            _vm._v(" "),
-            _c("div", {
-              staticClass: "w-[3px] h-2/3 bg-gray-200 rounded-full"
-            }),
+            _c(
+              "div",
+              { staticClass: "flex items-center space-x-2" },
+              [
+                _c(
+                  "div",
+                  { staticClass: "flex space-x-4 items-center" },
+                  [
+                    _c("span", [_vm._v("Sort by:")]),
+                    _vm._v(" "),
+                    _c("Select", {
+                      attrs: { data: _vm.sorts },
+                      on: { change: _vm.setSortingKey }
+                    })
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c("SortButton", {
+                  attrs: { text: "", icon: "asc" },
+                  on: { click: _vm.setSortingOrder }
+                }),
+                _vm._v(" "),
+                _c("SortButton", {
+                  attrs: { text: "", icon: "desc" },
+                  on: { click: _vm.setSortingOrder }
+                })
+              ],
+              1
+            ),
             _vm._v(" "),
             _c(
               "div",
               { staticClass: "flex space-x-4 items-center" },
               [
-                _c("span", [_vm._v("Filter by categorie:")]),
+                _c("span", [_vm._v("Category:")]),
                 _vm._v(" "),
                 _c("Select", {
-                  attrs: { values: _vm.categories },
-                  on: { change: _vm.filter }
+                  attrs: { data: _vm.categories },
+                  on: { change: _vm.setFilterValue }
                 })
               ],
               1
             )
-          ],
-          1
+          ]
         )
       ]
     )
