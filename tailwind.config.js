@@ -7,7 +7,12 @@ module.exports = {
   ],
   darkMode: false, // or 'media' or 'class'
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'Kollektif': ['Kollektif', 'sans-serif'],
+        'SourceSansPro': ['"Source Sans Pro"', 'sans-serif']
+      }
+    },
   },
   variants: {
     extend: {},

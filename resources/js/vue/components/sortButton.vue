@@ -1,7 +1,7 @@
 <template>
   <button
     @click="$emit('click', icon)"
-    class="flex items-center px-6 py-3 rounded-[16px] space-x-1.5 border-[3px] border-gray-200"
+    class="flex items-center px-6 py-3 rounded-[16px] space-x-1.5 border-[2px] border-gray-200"
   >
     <svg
       v-if="icon == 'desc'"
@@ -26,7 +26,7 @@
       ></path>
     </svg>
     <!--  -->
-    <span class="font-medium text-gray-700">
+    <span class="font-medium text-gray-700 text-md">
       {{ icon == "desc" ? "Decreasing" : "Increasing" }} {{ text }}
     </span>
   </button>

@@ -8,8 +8,8 @@
     <title>Products management app</title>
 </head>
 
-<body class="antialiased h-screen">
-    <div id="app" class="container h-full mx-auto">
+<body class="bg-white min-h-screen flex flex-col">
+    <div id="app" class="w-full h-full flex-1 flex">
         <app></app>
     </div>
     {{--  --}}
