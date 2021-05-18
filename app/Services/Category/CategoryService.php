@@ -22,7 +22,7 @@ class CategoryService implements CategoryServiceInterface
     #endregion
 
     /**
-     * 
+     *
      */
     public function getAll(): Collection
     {
@@ -30,7 +30,7 @@ class CategoryService implements CategoryServiceInterface
     }
 
     /**
-     * 
+     *
      */
     public function getProducts(Category $category): Collection
     {
@@ -39,7 +39,7 @@ class CategoryService implements CategoryServiceInterface
     }
 
     /**
-     * 
+     *
      */
     public function add(array $categoryData): CategoryDto
     {

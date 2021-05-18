@@ -2,15 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Dto\ObjectMapper;
 use App\Dto\ProductDto;
 use App\Http\Filters\ProductSort;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Services\Product\ProductServiceInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
-use Symfony\Component\VarDumper\VarDumper;
 
 class ProductController extends Controller
 {

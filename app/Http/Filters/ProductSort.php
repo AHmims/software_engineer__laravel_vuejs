@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Schema;
 
 class ProductSort extends AbstractBaseFilter
 {
-    #products? sort[by]=price & sort[order]=asc 
-
     /**
      * Sort the products by the given order and field.
      *

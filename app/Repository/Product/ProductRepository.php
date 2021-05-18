@@ -2,15 +2,10 @@
 
 namespace App\Repository\Product;
 
-use App\Dto\ProductDto;
 use App\Http\Filters\ProductSort;
 use App\Models\Category;
 use App\Models\Product;
-use App\Repository\Category\CategoryRepositoryInterface;
-use Exception;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 
 class ProductRepository implements ProductRepositoryInterface
 {
@@ -37,7 +32,7 @@ class ProductRepository implements ProductRepositoryInterface
     {
         $categories = new Collection();
 
-        foreach ($productData['categories'] as $categoryId) {
+        foreach ($productData['categories'] as $key => $categoryId) {
             $categories->add(Category::findOrFail($categoryId));
         }
 

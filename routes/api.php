@@ -3,8 +3,6 @@
 use App\Exceptions\PrepareExceptionResponse;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
-use App\Http\Controllers\TestController;
-use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +27,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('/product')->group(function () {
     Route::get('/', [ProductController::class, 'getAll']);
-    Route::get('/{product}', [ProductController::class, 'get'])->missing(function (Request $request) {
+    Route::get('/{product}', [ProductController::class, 'get'])->missing(function () {
         return PrepareExceptionResponse::getNoModuleError();
     });
     Route::post('/', [ProductController::class, 'insert']);
@@ -45,7 +43,7 @@ Route::prefix('/product')->group(function () {
 
 Route::prefix('/category')->group(function () {
     Route::get('/', [CategoryController::class, 'getAll']);
-    Route::get('/{category}', [CategoryController::class, 'getProductsByCategory'])->missing(function (Request $request) {
+    Route::get('/{category}', [CategoryController::class, 'getProductsByCategory'])->missing(function () {
         return PrepareExceptionResponse::getNoModuleError();
     });
     Route::post('/', [CategoryController::class, 'insert']);

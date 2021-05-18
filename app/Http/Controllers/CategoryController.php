@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Dto\CategoryDto;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use App\Repository\Category\CategoryRepositoryInterface;
 use App\Services\Category\CategoryServiceInterface;
-use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class CategoryController extends Controller
@@ -25,7 +23,7 @@ class CategoryController extends Controller
 
     /**
      * * Returns a list of all Categories
-     * 
+     *
      * @return Illuminate\Support\Collection<CategoryDto>
      */
     public function getAll(): Collection
@@ -35,7 +33,7 @@ class CategoryController extends Controller
 
     /**
      * * Returns a list of Products by category
-     * 
+     *
      * @return Illuminate\Support\Collection<ProductDto>
      */
     public function getProductsByCategory(Category $category): Collection
@@ -45,8 +43,8 @@ class CategoryController extends Controller
 
     /**
      * * Insert new Category
-     * 
-     * 
+     *
+     *
      */
     public function insert(CategoryRequest $request): CategoryDto
     {

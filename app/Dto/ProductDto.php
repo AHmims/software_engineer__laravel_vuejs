@@ -8,14 +8,16 @@ use JsonSerializable;
 class ProductDto implements JsonSerializable
 {
     #region Fields declaration
+
     private int $id;
     private string $name;
     private string $description;
     private $price;
     private string $image;
     private Collection $categories;
+
     #endregion
-    //
+
     /**
      * * Class constructor
      * @param string $name
@@ -35,13 +37,13 @@ class ProductDto implements JsonSerializable
         $this->categories = $categories;
     }
 
-    //
+    /**
+     * 
+     */
     public function jsonSerialize(): array
     {
         return get_object_vars($this);
     }
-
-    //
 
     /**
      * Get the value of id

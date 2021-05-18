@@ -2,7 +2,6 @@
 
 namespace App\Services\Product;
 
-use App\Dto\CategoryDto;
 use App\Dto\ObjectMapper;
 use App\Dto\ProductDto;
 use App\Http\Filters\ProductSort;
@@ -10,7 +9,6 @@ use App\Models\Product;
 use App\Repository\Category\CategoryRepositoryInterface;
 use App\Repository\Product\ProductRepositoryInterface;
 use App\Services\Category\CategoryServiceInterface;
-use Exception;
 use Illuminate\Support\Collection;
 
 class ProductService implements ProductServiceInterface

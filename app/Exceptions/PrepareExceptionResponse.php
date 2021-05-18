@@ -5,8 +5,6 @@ namespace App\Exceptions;
 use App\Dto\ErrorDto;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Str;
 use Throwable;
 

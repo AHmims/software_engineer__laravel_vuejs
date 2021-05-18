@@ -2,11 +2,7 @@
 
 namespace App\Exceptions;
 
-use App\Dto\ErrorDto;
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -43,6 +39,9 @@ class Handler extends ExceptionHandler
         });
     }
 
+    /**
+     * 
+     */
     public function render($request, Throwable $e)
     {
         if (get_class($e) == "Illuminate\Database\Eloquent\ModelNotFoundException") {

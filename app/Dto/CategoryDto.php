@@ -7,11 +7,13 @@ use JsonSerializable;
 class CategoryDto implements JsonSerializable
 {
     #region Fields declaration
+
     private int $id;
     private string $name;
     private int $parentId;
+
     #endregion
-    //
+
     /**
      * * Class constructor
      * @param string $name
@@ -24,14 +26,14 @@ class CategoryDto implements JsonSerializable
         $this->name = $name;
         $this->parentId = $parentId;
     }
-    //
+
+    /**
+     * 
+     */
     public function jsonSerialize(): array
     {
         return get_object_vars($this);
     }
-
-    //
-
 
     /**
      * Get the value of id
@@ -74,23 +76,23 @@ class CategoryDto implements JsonSerializable
     }
 
     /**
-     * Get the value of parent
+     * Get the value of parentId
      *
-     * @return CategoryDto
+     * @return int
      */
-    public function getParent(): CategoryDto
+    public function getParentId(): int
     {
-        return $this->parent;
+        return $this->parentId;
     }
 
     /**
-     * Set the value of parent
+     * Set the value of parentId
      *
-     * @param CategoryDto $parent
+     * @param int $parentId
 
      */
-    public function setParent(CategoryDto $parent): void
+    public function setParentId(int $parentId): void
     {
-        $this->parent = $parent;
+        $this->parentId = $parentId;
     }
 }
