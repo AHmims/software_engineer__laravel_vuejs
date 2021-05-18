@@ -16,7 +16,7 @@ const { toast } = require("./toast/toast.js");
 window.toast = toast;
 
 import th from "./toast/toastsHandler.js";
-window.th = th;
+window.toastjs = th;
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

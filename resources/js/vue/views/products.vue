@@ -26,6 +26,8 @@
 <script>
 import SortButton from "../components/sortButton.vue";
 import Select from "../components/select.vue";
+import CategoryService from "../services/categoryService.js";
+import MapData from "../helpers/mapData.js";
 
 export default {
   components: {
@@ -55,7 +57,7 @@ export default {
         selected: null,
         list: [],
       },
-      products: [],
+      products: [1, 2],
       sortingKey: "created_at",
       sortingValue: "desc",
       selectedCategory: -1,
@@ -63,14 +65,27 @@ export default {
   },
   methods: {
     setSortingOrder(data) {
-      console.log(data);
+      // console.log(data);
+      this.updateProductsList();
     },
     setSortingKey(data) {
-      console.log(data.target.options[data.target.selectedIndex].value);
+      // console.log(data.target.options[data.target.selectedIndex].value);
+      this.updateProductsList();
     },
     setFilterValue(data) {
-      console.log(data.target.options[data.target.selectedIndex].value);
+      // console.log(data.target.options[data.target.selectedIndex].value);
+      this.updateProductsList();
     },
+    async updateProductsList() {},
+  },
+  async mounted() {
+    // Get categories
+    try {
+      let response = await CategoryService.getAllCategories();
+      this.categories.list = MapData.parseCategories(response);
+    } catch (e) {
+      toastjs.logServerError();
+    }
   },
 };
 </script>
