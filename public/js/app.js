@@ -2081,8 +2081,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     data: {
@@ -22380,11 +22378,9 @@ var render = function() {
     },
     [
       _vm.data.selected == null
-        ? _c(
-            "option",
-            { attrs: { value: "null", disabled: "", selected: "" } },
-            [_vm._v("\n    Choose a value\n  ")]
-          )
+        ? _c("option", { attrs: { value: "-1", selected: "" } }, [
+            _vm._v("All")
+          ])
         : _vm._e(),
       _vm._v(" "),
       _vm._l(_vm.data.list, function(value) {

@@ -3,9 +3,7 @@
     class="px-6 py-3 rounded-[16px] space-x-1.5 border-[2px] border-gray-200 text-md capitalize"
     @change="$emit('change', $event)"
   >
-    <option value="null" disabled selected v-if="data.selected == null">
-      Choose a value
-    </option>
+    <option value="-1" selected v-if="data.selected == null">All</option>
     <option
       v-for="value in data.list"
       :key="value.id"
