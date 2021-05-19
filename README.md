@@ -1,89 +1,103 @@
-# Software Engineer - Laravel VueJs
 
-Challenge link: https://github.com/NextmediaMa/coding-challenges/tree/master/Software%20Engineer%20-%20Laravel%20VueJs
+# Software Engineer - Laravel VueJs Web Challenge
 
-Hosted app: https://prime-stew-production.up.railway.app/
+A webapp with both front-end and back-end parts for managing products.
 
-# Journey
 
-## Cmds
+## Related
 
-### Create laravel app
+[Challenge link](https://github.com/NextmediaMa/coding-challenges/tree/master/Software%20Engineer%20-%20Laravel%20VueJs)
 
-Install Composer first
+  
+[🚀 Hosted app](https://prime-stew-production.up.railway.app/)
 
-Then ```composer create-project laravel/laravel```
+## API Reference
 
-### Run dev server
+### Product endpoint
 
-```php artisan serve```
+#### Get all products
 
-### Run tests
+```http
+  GET /api/product
+```
 
-```php artisan test```
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `sort[by]` | `string` | **Optional**. Sorting key {"name, price, created_at"} |
+| `sort[order]` | `string` | **Optional**. Sorting order {"asc, desc"} |
 
-### Run webpack watcher to detect changes in files and hot reload
+#### Get product
 
-A mix of
+```http
+  GET /api/product/${id}
+```
 
-```npm run watch```
- && 
-```npm run hot```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Required**. Id of product to fetch |
 
-### Create migrations
+#### Add product
 
-```php artisan make:migration <migration_name>```
+```http
+  POST /api/product
+```
 
-### Create model
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name`      | `string` | **Required**. Name of product |
+| `description`      | `string` | **Required**. Description of product |
+| `price`      | `number` | **Required**. Price of product |
+| `image`      | `string` | **Required**. Image of product |
+| `categories`      | `array<int>` | **Required**. Id's of categories |
 
-```php artisan make:model <model_name>```
+### Category endpoint
 
-### Create model with migration
+#### Get all categories
 
-```php artisan make:model <model_name> -m```
+```http
+  GET /api/category
+```
 
-### Execute the created migrations
+#### Get products by category
 
-```php artisan migrate```
+```http
+  GET /api/category/${id}
+```
 
-### Drop all migrations and re-migrate
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `id`      | `int` | **Required**. Id of category that products belongs to|
 
-```php artisan migrate:fresh```
+#### Add category
 
-### Create controller
+```http
+  POST /api/category
+```
 
-```php artisan make:controller <controller_name> -r```
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `name`      | `string` | **Required**. Name of category |
+| `parent_category`      | `id` | **Optional**. Id of parent category |
 
--r: creates some premade helper functions
 
-### Create provider
+## Installation 
 
-```php artisan make:provider <provider_name>```
+Rename `.env.example` to `.env` in you root folder, and update the following.
 
-## Test requests
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=dbName
+DB_USERNAME=username
+DB_PASSWORD=password
+```
 
-### Product route
+Then get the required dependencies:
 
-#### Get all
-
-```GET https://prime-stew-production.up.railway.app/api/product/all```
-
-#### Insert product
-
-```POST https://prime-stew-production.up.railway.app/api/product/add```
-
-data: ```{ "name": "", "description": "", "price": 0, "image": "", "categories" : [1,...] }```
-
-### Category route
-
-#### Get all
-
-```GET https://prime-stew-production.up.railway.app/api/category/all```
-
-#### Insert category
-
-```POST https://prime-stew-production.up.railway.app/api/category/add```
-
-data: ```{ "name": "", "parent": 1  }```
-
-"parent" is optional
+```bash 
+  composer update
+  npm i
+  php artisan migrate:fresh
+```
+    
