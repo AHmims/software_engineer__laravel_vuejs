@@ -61,11 +61,7 @@
           opacity: 0.2;
         "
       ></div>
-      <img
-        class="relative w-40"
-        src="https://user-images.githubusercontent.com/2805249/64069899-8bdaa180-cc97-11e9-9b19-1a9e1a254c18.png"
-        alt=""
-      />
+      <img class="relative w-40" :src="product.image" alt="" />
     </div>
     <div class="relative text-white px-6 pb-6 mt-6">
       <span class="block opacity-75 -mb-1 truncate">{{
