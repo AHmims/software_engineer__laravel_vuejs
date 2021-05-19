@@ -1,30 +1,4 @@
 <template>
-  <!-- <div
-    class="flex p-4 border-[2px] border-gray-200 rounded-xl w-[400px] h-[180px] overflow-hidden"
-  >
-    <img :src="product.image" class="h-full w-32 mr-3" />
-    <div class="flex-1 flex flex-col">
-      <p
-        class="flex-none overflow-hidden text-lg font-medium overflow-clip truncate"
-      >
-        {{ product.name }}
-      </p>
-      <div class="w-full flex items-baseline justify-between">
-        <div
-          v-for="category in product.category"
-          :key="category.id"
-          :value="category.id"
-          class="flex items-center space-x-1"
-        >
-          <span class="text-sm">{{ category.name }}</span>
-        </div>
-        <span class="text-base font-medium">{{ product.price }}-DH</span>
-      </div>
-      <p class="flex-auto overflow-ellipsis overflow-hidden">
-        {{ product.description }}
-      </p>
-    </div>
-  </div> -->
   <div
     class="flex-shrink-0 relative overflow-hidden bg-gray-500 rounded-lg max-w-xs shadow-lg"
   >
@@ -61,7 +35,11 @@
           opacity: 0.2;
         "
       ></div>
-      <img class="relative w-40" :src="product.image" alt="" />
+      <img
+        class="relative w-40 h-[135px] object-contain"
+        :src="product.image"
+        alt=""
+      />
     </div>
     <div class="relative text-white px-6 pb-6 mt-6">
       <span class="block opacity-75 -mb-1 truncate">{{
