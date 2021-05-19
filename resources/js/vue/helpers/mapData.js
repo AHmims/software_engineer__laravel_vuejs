@@ -15,8 +15,14 @@ export default {
         let newProducts = [];
 
         products.forEach(product => {
-            let newProduct = product;
+            let newProduct = {};
+
+            newProduct.name = product.name;
+            newProduct.description = product.description;
+            newProduct.price = product.price;
+            newProduct.image = product.image;
             newProduct.categories = this.parseCategories(product.categories);
+
             newProducts.push(newProduct);
         });
 

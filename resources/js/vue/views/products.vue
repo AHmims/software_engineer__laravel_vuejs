@@ -27,6 +27,7 @@
 import SortButton from "../components/sortButton.vue";
 import Select from "../components/select.vue";
 import CategoryService from "../services/categoryService.js";
+import ProductService from "../services/productService.js";
 import MapData from "../helpers/mapData.js";
 
 export default {
@@ -57,7 +58,7 @@ export default {
         selected: null,
         list: [],
       },
-      products: [1, 2],
+      products: [],
       sortingKey: "created_at",
       sortingValue: "desc",
       selectedCategory: -1,
@@ -65,18 +66,45 @@ export default {
   },
   methods: {
     setSortingOrder(data) {
-      // console.log(data);
+      this.sortingValue = data;
       this.updateProductsList();
     },
-    setSortingKey(data) {
-      // console.log(data.target.options[data.target.selectedIndex].value);
+    setSortingKey(event) {
+      this.sortingKey = event.target.options[event.target.selectedIndex].value;
       this.updateProductsList();
     },
-    setFilterValue(data) {
-      // console.log(data.target.options[data.target.selectedIndex].value);
+    setFilterValue(event) {
+      this.selectedCategory =
+        event.target.options[event.target.selectedIndex].value;
       this.updateProductsList();
     },
-    async updateProductsList() {},
+    async updateProductsList() {
+      //sorting only works when no category is selected
+      try {
+        let response = null;
+
+        if (this.selectedCategory == -1) {
+          response = await ProductService.getAll(
+            this.sortingKey,
+            this.sortingValue
+          );
+        } else {
+          response = await CategoryService.getAllProducts(
+            this.selectedCategory,
+            this.sortingKey,
+            this.sortingValue
+          );
+        }
+
+        this.products = MapData.parseProducts(response);
+      } catch (e) {
+        if (e.response != undefined) {
+          toastjs.logErrorActive(e.response.data.message);
+        } else {
+          toastjs.logErrorActive("Unknown error, refresh the page and retry");
+        }
+      }
+    },
   },
   async mounted() {
     // Get categories
@@ -86,6 +114,9 @@ export default {
     } catch (e) {
       toastjs.logServerError();
     }
+
+    // Get products
+    this.updateProductsList();
   },
 };
 </script>
