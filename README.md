@@ -100,4 +100,7 @@ Then get the required dependencies:
   npm i
   php artisan migrate:fresh
 ```
-    
+
+## Preview
+
+https://user-images.githubusercontent.com/57252917/118812598-2fbe1380-b8a6-11eb-83a5-cb4c1b31aea1.mp4
