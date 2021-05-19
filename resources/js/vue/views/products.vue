@@ -1,10 +1,12 @@
 <template>
-  <div>
+  <div class="flex flex-col">
     <div
       class="w-full flex flex-col xl:flex-row xl:items-center justify-between"
     >
       <h1 class="text-3xl font-Kollektif">Products management</h1>
-      <div class="flex items-center space-x-6 mt-4 xl:mt-0 font-SourceSansPro">
+      <div
+        class="flex flex-col md:flex-row md:items-center space-y-2 md:space-x-6 mt-4 xl:mt-0 font-SourceSansPro"
+      >
         <div class="flex items-center space-x-2">
           <div class="flex space-x-4 items-center">
             <span>Sort by:</span>
@@ -20,6 +22,7 @@
       </div>
     </div>
     <!--  -->
+    <ProductsList :products="products" />
   </div>
 </template>
 
@@ -29,11 +32,13 @@ import Select from "../components/select.vue";
 import CategoryService from "../services/categoryService.js";
 import ProductService from "../services/productService.js";
 import MapData from "../helpers/mapData.js";
+import ProductsList from "../components/productsList.vue";
 
 export default {
   components: {
     SortButton,
     Select,
+    ProductsList,
   },
   data: () => {
     return {
